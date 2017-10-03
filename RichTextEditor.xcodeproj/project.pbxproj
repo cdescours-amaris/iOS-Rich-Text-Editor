@@ -196,6 +196,8 @@
 		34BF6B7A1E52166800A736BB /* keyboard-arrow-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34BF6B751E52166800A736BB /* keyboard-arrow-up@2x.png */; };
 		34BF6B7B1E52166800A736BB /* keyboard-arrow-up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34BF6B761E52166800A736BB /* keyboard-arrow-up@3x.png */; };
 		34BF6B7C1E52166800A736BB /* keyboard-arrow-up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34BF6B761E52166800A736BB /* keyboard-arrow-up@3x.png */; };
+		3F16CE501F4BF65F000A8F64 /* RichTextImageAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */; };
+		3F16CE511F4BF65F000A8F64 /* RichTextImageAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */; };
 		D28387081A7EE1340093AF3E /* OtherLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = D28387071A7EE1340093AF3E /* OtherLicenses.txt */; };
 /* End PBXBuildFile section */
 
@@ -355,6 +357,8 @@
 		34BF6B741E52166800A736BB /* keyboard-arrow-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-arrow-up.png"; sourceTree = "<group>"; };
 		34BF6B751E52166800A736BB /* keyboard-arrow-up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-arrow-up@2x.png"; sourceTree = "<group>"; };
 		34BF6B761E52166800A736BB /* keyboard-arrow-up@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-arrow-up@3x.png"; sourceTree = "<group>"; };
+		3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RichTextImageAttachment.h; sourceTree = "<group>"; };
+		3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RichTextImageAttachment.m; sourceTree = "<group>"; };
 		D28387071A7EE1340093AF3E /* OtherLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OtherLicenses.txt; sourceTree = "<group>"; };
 		D2ECA7081A321FE900C57F03 /* button-center-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-center-selected.png"; sourceTree = "<group>"; };
 		D2ECA70A1A321FE900C57F03 /* button-left-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-left-selected.png"; sourceTree = "<group>"; };
@@ -419,6 +423,8 @@
 				153F9581179F9953005B2487 /* RichTextEditorFontSizePickerViewController.h */,
 				153F9582179F9953005B2487 /* RichTextEditorFontSizePickerViewController.m */,
 				153F9583179F9953005B2487 /* RichTextEditorPopover.h */,
+				3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */,
+				3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */,
 				D28387071A7EE1340093AF3E /* OtherLicenses.txt */,
 			);
 			path = Source;
@@ -645,6 +651,7 @@
 				34BF6A511E5140D500A736BB /* UIView+RichTextEditor.h in Headers */,
 				34BF6A561E5140D500A736BB /* RichTextEditorColorPickerViewController.h in Headers */,
 				34BF6A571E5140D500A736BB /* RichTextEditorFontPickerViewController.h in Headers */,
+				3F16CE501F4BF65F000A8F64 /* RichTextImageAttachment.h in Headers */,
 				34BF6A581E5140D500A736BB /* RichTextEditorFontSizePickerViewController.h in Headers */,
 				34BF6A521E5140D500A736BB /* WZProtocolInterceptor.h in Headers */,
 				34BF6A541E5140D500A736BB /* RichTextEditorToolbar.h in Headers */,
@@ -973,6 +980,7 @@
 				34BF6A4C1E5140C500A736BB /* RichTextEditorColorPickerViewController.m in Sources */,
 				34BF6A4D1E5140C500A736BB /* RichTextEditorFontPickerViewController.m in Sources */,
 				34BF6A4E1E5140C500A736BB /* RichTextEditorFontSizePickerViewController.m in Sources */,
+				3F16CE511F4BF65F000A8F64 /* RichTextImageAttachment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
