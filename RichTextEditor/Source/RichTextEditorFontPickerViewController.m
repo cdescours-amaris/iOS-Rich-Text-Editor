@@ -29,19 +29,19 @@
 
 @implementation RichTextEditorFontPickerViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	
 	NSArray *customizedFontFamilies = [self.dataSource richTextEditorFontPickerViewControllerCustomFontFamilyNamesForSelection];
 	
-	if (customizedFontFamilies)
+    if (customizedFontFamilies) {
 		self.fontNames = customizedFontFamilies;
-	else
+    }
+    else {
 		self.fontNames = [[UIFont familyNames] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    }
 	
-	if ([self.dataSource richTextEditorFontPickerViewControllerShouldDisplayToolbar])
-	{
+	if ([self.dataSource richTextEditorFontPickerViewControllerShouldDisplayToolbar]) {
         CGFloat reservedSizeForStatusBar = (
                                                UIDevice.currentDevice.systemVersion.floatValue >= 7.0
                                             && !(   UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
@@ -66,8 +66,7 @@
 		
 		self.tableview.frame = CGRectMake(0, toolbarHeight, self.view.frame.size.width, self.view.frame.size.height - toolbarHeight);
 	}
-	else
-	{
+	else {
 		self.tableview.frame = self.view.bounds;
 	}
 	
@@ -85,45 +84,40 @@
 
 #pragma mark - IBActions -
 
-- (void)closeSelected:(id)sender
-{
+- (void)closeSelected:(id)sender {
 	[self.delegate richTextEditorFontPickerViewControllerDidSelectClose];
 }
 
 #pragma mark - UITableView Delegate & Datasrouce -
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return self.fontNames.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *cellIdentifier = @"FontSizeCell";
 	
 	NSString *fontName = [self.fontNames objectAtIndex:indexPath.row];
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 	
-	if (!cell)
+    if (!cell) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
 	
 	cell.textLabel.text = fontName;
 	cell.textLabel.font = [UIFont fontWithName:fontName size:16];
 	return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSString *fontName = [self.fontNames objectAtIndex:indexPath.row];
 	[self.delegate richTextEditorFontPickerViewControllerDidSelectFontWithName:fontName];
 }
 
 #pragma mark - Setter & Getter -
 
-- (UITableView *)tableview
-{
-	if (!_tableview)
-	{
+- (UITableView *)tableview {
+	if (!_tableview) {
 		_tableview = [[UITableView alloc] initWithFrame:self.view.bounds];
 		_tableview.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 		_tableview.delegate = self;

@@ -29,10 +29,8 @@
 
 @implementation RichTextEditorToggleButton
 
-- (id)init
-{
-	if (self = [super init])
-	{
+- (id)init {
+	if (self = [super init]) {
 		self.on = NO;
 		NSBundle *frameWorkBundle = [NSBundle bundleForClass:[self class]];
 		UIImage *image = [UIImage imageNamed:@"button-selected" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
@@ -42,15 +40,13 @@
 	return self;
 }
 
-- (void)setOn:(BOOL)on
-{
+- (void)setOn:(BOOL)on {
 	_on = on;
 	
 	[self setBackgroundImage:[self imageForState] forState:UIControlStateNormal];
 }
 
-- (UIImage *)imageForState
-{
+- (UIImage *)imageForState {
 	NSBundle *frameWorkBundle = [NSBundle bundleForClass:[self class]];
 	UIImage *image = [UIImage imageNamed:@"button-selected" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
 	return (self.on) ? image :nil;

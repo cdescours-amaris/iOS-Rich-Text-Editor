@@ -31,8 +31,7 @@
 
 #pragma mark - VoewController Methods -
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 	
 	self.view.backgroundColor = [UIColor whiteColor];
@@ -67,8 +66,7 @@
 	self.colorsImageView.layer.borderWidth = 0;
 	[self.view addSubview:self.colorsImageView];
 	
-	if ([self.dataSource richTextEditorColorPickerViewControllerShouldDisplayToolbar])
-	{
+	if ([self.dataSource richTextEditorColorPickerViewControllerShouldDisplayToolbar]) {
         CGFloat reservedSizeForStatusBar = (
                                             UIDevice.currentDevice.systemVersion.floatValue >= 7.0
                                             && !(   UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
@@ -119,8 +117,7 @@
 
 #pragma mark - Private Methods -
 
-- (void)populateColorsForPoint:(CGPoint)point
-{
+- (void)populateColorsForPoint:(CGPoint)point {
 	CGPoint pointInView = [self.colorsImageView convertPoint:point toView:self.colorsImageView];
 	
 	if (CGRectContainsPoint(self.colorsImageView.bounds, pointInView))
@@ -129,31 +126,26 @@
 
 #pragma mark - IBActions -
 
-- (IBAction)doneSelected:(id)sender
-{
+- (IBAction)doneSelected:(id)sender {
 	[self.delegate richTextEditorColorPickerViewControllerDidSelectColor:self.selectedColorView.backgroundColor withAction:self.action];
 }
 
-- (IBAction)closeSelected:(id)sender
-{
+- (IBAction)closeSelected:(id)sender {
 	[self.delegate richTextEditorColorPickerViewControllerDidSelectClose];
 }
 
-- (IBAction)clearSelected:(id)sender
-{
+- (IBAction)clearSelected:(id)sender {
 	[self.delegate richTextEditorColorPickerViewControllerDidSelectColor:nil withAction:self.action];
 }
 
 #pragma mark - Touch Detection -
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
 	[self populateColorsForPoint:locationPoint];
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 	CGPoint locationPoint = [[touches anyObject] locationInView:self.colorsImageView];
 	[self populateColorsForPoint:locationPoint];
 }

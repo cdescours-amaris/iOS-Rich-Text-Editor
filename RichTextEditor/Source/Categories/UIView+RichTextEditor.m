@@ -29,8 +29,7 @@
 
 @implementation UIView (RichTextEditor)
 
-- (UIColor *)colorOfPoint:(CGPoint)point
-{
+- (UIColor *)colorOfPoint:(CGPoint)point {
     unsigned char pixel[4] = {0};
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(pixel, 1, 1, 8, 4, colorSpace, (uint32_t)kCGImageAlphaPremultipliedLast);
@@ -46,27 +45,20 @@
     return color;
 }
 
-- (UIViewController *)firstAvailableViewController
-{
+- (UIViewController *)firstAvailableViewController {
     return (UIViewController *)[self traverseResponderChainForUIViewController];
 }
 
-- (id)traverseResponderChainForUIViewController
-{
+- (id)traverseResponderChainForUIViewController {
     id nextResponder = [self nextResponder];
 	
-    if ([nextResponder isKindOfClass:[UIViewController class]])
-	{
+    if ([nextResponder isKindOfClass:[UIViewController class]]) {
         return nextResponder;
     }
-	else if ([nextResponder isKindOfClass:[UIView class]])
-	{
+	else if ([nextResponder isKindOfClass:[UIView class]]) {
         return [nextResponder traverseResponderChainForUIViewController];
     }
-	else
-	{
-        return nil;
-    }
+    return nil;
 }
 
 @end

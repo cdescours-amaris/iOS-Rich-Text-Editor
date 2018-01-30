@@ -69,10 +69,8 @@
 
 #pragma mark - Initialization -
 
-- (id)initWithFrame:(CGRect)frame delegate:(id <RichTextEditorToolbarDelegate>)delegate dataSource:(id <RichTextEditorToolbarDataSource>)dataSource
-{
-	if (self = [super initWithFrame:frame])
-	{
+- (id)initWithFrame:(CGRect)frame delegate:(id <RichTextEditorToolbarDelegate>)delegate dataSource:(id <RichTextEditorToolbarDataSource>)dataSource {
+	if (self = [super initWithFrame:frame]) {
 		self.toolbarDelegate = delegate;
 		self.dataSource = dataSource;
 		
@@ -89,13 +87,11 @@
 
 #pragma mark - Public Methods -
 
-- (void)redraw
-{
+- (void)redraw {
 	[self populateToolbar];
 }
 
-- (void)updateStateWithAttributes:(NSDictionary *)attributes
-{
+- (void)updateStateWithAttributes:(NSDictionary *)attributes {
 	UIFont *font = [attributes objectForKey:NSFontAttributeName];
 	NSParagraphStyle *paragraphStyle = [attributes objectForKey:NSParagraphStyleAttributeName];
 	[self.btnFontSize setTitle:[NSString stringWithFormat:@"%.f", font.pointSize] forState:UIControlStateNormal];
@@ -110,23 +106,19 @@
 	self.btnTextAlignmentJustified.on = NO;
 	self.btnParagraphFirstLineHeadIndent.on = (paragraphStyle.firstLineHeadIndent > paragraphStyle.headIndent) ? YES : NO;
 	
-	switch (paragraphStyle.alignment)
-	{
+	switch (paragraphStyle.alignment) {
 		case NSTextAlignmentLeft:
 			self.btnTextAlignmentLeft.on = YES;
 			break;
 		case NSTextAlignmentCenter:
 			self.btnTextAlignmentCenter.on = YES;
 			break;
-			
 		case NSTextAlignmentRight:
 			self.btnTextAlignmentRight.on = YES;
 			break;
-			
 		case NSTextAlignmentJustified:
 			self.btnTextAlignmentJustified.on = YES;
 			break;
-			
 		default:
 			self.btnTextAlignmentLeft.on = YES;
 			break;
@@ -143,104 +135,93 @@
 
 #pragma mark - IBActions -
 
-- (void)boldSelected:(UIButton *)sender
-{
+- (void)boldSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectBold];
 }
 
-- (void)italicSelected:(UIButton *)sender
-{
+- (void)italicSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectItalic];
 }
 
-- (void)underLineSelected:(UIButton *)sender
-{
+- (void)underLineSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectUnderline];
 }
 
-- (void)strikeThroughSelected:(UIButton *)sender
-{
+- (void)strikeThroughSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectStrikeThrough];
 }
 
-- (void)bulletListSelected:(UIButton *)sender
-{
+- (void)bulletListSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectBulletListWithCaller:self];
 }
 
-- (void)paragraphIndentSelected:(UIButton *)sender
-{
+- (void)paragraphIndentSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectParagraphIndentation:ParagraphIndentationIncrease];
 }
 
-- (void)paragraphOutdentSelected:(UIButton *)sender
-{
+- (void)paragraphOutdentSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectParagraphIndentation:ParagraphIndentationDecrease];
 }
 
-- (void)paragraphHeadIndentOutdentSelected:(UIButton *)sender
-{
+- (void)paragraphHeadIndentOutdentSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectParagraphFirstLineHeadIndent];
 }
 
-- (void)undoSelected:(UIButton *)sender
-{
+- (void)undoSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectUndo];
 }
 
-- (void)redoSelected:(UIButton *)sender
-{
+- (void)redoSelected:(UIButton *)sender {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectRedo];
 }
 
-- (void)dismissKeyboard:(UIButton *)sender
-{
+- (void)dismissKeyboard:(UIButton *)sender {
     [self.toolbarDelegate richTextEditorToolbarDidSelectDismissKeyboard];
 }
 
-- (void)fontSizeSelected:(UIButton *)sender
-{
+- (void)fontSizeSelected:(UIButton *)sender {
 	UIViewController <RichTextEditorFontSizePicker> *fontSizePicker = [self.dataSource fontSizePickerForRichTextEditorToolbar];
 	
-	if (!fontSizePicker)
+    if (!fontSizePicker) {
 		fontSizePicker = [[RichTextEditorFontSizePickerViewController alloc] init];
+    }
 	
 	fontSizePicker.delegate = self;
 	fontSizePicker.dataSource = self;
 	[self presentViewController:fontSizePicker fromView:sender];
 }
 
-- (void)fontSelected:(UIButton *)sender
-{
+- (void)fontSelected:(UIButton *)sender {
 	UIViewController <RichTextEditorFontPicker> *fontPicker = [self.dataSource fontPickerForRichTextEditorToolbar];
 	
-	if (!fontPicker)
+    if (!fontPicker) {
 		fontPicker= [[RichTextEditorFontPickerViewController alloc] init];
-	
+    }
+    
 	fontPicker.delegate = self;
 	fontPicker.dataSource = self;
 	[self presentViewController:fontPicker fromView:sender];
 }
 
-- (void)textBackgroundColorSelected:(UIButton *)sender
-{
+- (void)textBackgroundColorSelected:(UIButton *)sender {
 	UIViewController <RichTextEditorColorPicker> *colorPicker = [self.dataSource colorPickerForRichTextEditorToolbarWithAction:RichTextEditorColorPickerActionTextBackgroundColor];
 	
-	if (!colorPicker)
+    if (!colorPicker) {
 		colorPicker = [[RichTextEditorColorPickerViewController alloc] init];
-	
+    }
+    
 	colorPicker.action = RichTextEditorColorPickerActionTextBackgroundColor;
 	colorPicker.delegate = self;
 	colorPicker.dataSource = self;
 	[self presentViewController:colorPicker fromView:sender];
 }
 
-- (void)textForegroundColorSelected:(UIButton *)sender
-{
+- (void)textForegroundColorSelected:(UIButton *)sender {
 	UIViewController <RichTextEditorColorPicker> *colorPicker = [self.dataSource colorPickerForRichTextEditorToolbarWithAction:RichTextEditorColorPickerActionTextForegroudColor];
 	
-	if (!colorPicker)
+    if (!colorPicker) {
 		colorPicker = [[RichTextEditorColorPickerViewController alloc] init];
+    }
 	
 	colorPicker.action = RichTextEditorColorPickerActionTextForegroudColor;
 	colorPicker.delegate = self;
@@ -248,24 +229,26 @@
 	[self presentViewController:colorPicker fromView:sender];
 }
 
-- (void)textAlignmentSelected:(UIButton *)sender
-{
+- (void)textAlignmentSelected:(UIButton *)sender {
 	NSTextAlignment textAlignment = NSTextAlignmentLeft;
 	
-	if (sender == self.btnTextAlignmentLeft)
+    if (sender == self.btnTextAlignmentLeft) {
 		textAlignment = NSTextAlignmentLeft;
-	else if (sender == self.btnTextAlignmentCenter)
+    }
+    else if (sender == self.btnTextAlignmentCenter) {
 		textAlignment = NSTextAlignmentCenter;
-	else if (sender == self.btnTextAlignmentRight)
+    }
+    else if (sender == self.btnTextAlignmentRight) {
 		textAlignment = NSTextAlignmentRight;
-	else
+    }
+    else {
 		textAlignment = NSTextAlignmentJustified;
+    }
 	
 	[self.toolbarDelegate richTextEditorToolbarDidSelectTextAlignment:textAlignment];
 }
 
-- (void)textAttachmentSelected:(UIButton *)sender
-{
+- (void)textAttachmentSelected:(UIButton *)sender {
 	UIImagePickerController *vc = [[UIImagePickerController alloc] init];
 	vc.delegate = self;
 	[self presentViewController:vc fromView:self.btnTextAttachment];
@@ -273,15 +256,13 @@
 
 #pragma mark - Private Methods -
 
-- (void)populateToolbar
-{
+- (void)populateToolbar {
 	CGRect visibleRect;
 	visibleRect.origin = self.contentOffset;
 	visibleRect.size = self.bounds.size;
 	
     // Remove any existing subviews.
-    for (UIView *subView in self.subviews)
-	{
+    for (UIView *subView in self.subviews) {
         [subView removeFromSuperview];
     }
     
@@ -302,16 +283,14 @@
         lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
     }
 	
-	if ((features & RichTextEditorFeatureUndoRedo || features & RichTextEditorFeatureAll) && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-	{
+	if ((features & RichTextEditorFeatureUndoRedo || features & RichTextEditorFeatureAll) && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
 		lastAddedView = [self addView:self.btnTextUndo afterView:lastAddedView withSpacing:YES];
 		lastAddedView = [self addView:self.btnTextRedo afterView:lastAddedView withSpacing:YES];
 		lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Font selection
-	if (features & RichTextEditorFeatureFont || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureFont || features & RichTextEditorFeatureAll) {
 		UIView *separatorView = [self separatorView];
 		CGSize size = [self.btnFont sizeThatFits:CGSizeZero];
 		CGRect rect = self.btnFont.frame;
@@ -323,133 +302,112 @@
 	}
 	
 	// Font size
-	if (features & RichTextEditorFeatureFontSize || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureFontSize || features & RichTextEditorFeatureAll) {
 		UIView *separatorView = [self separatorView];
 		lastAddedView = [self addView:self.btnFontSize afterView:lastAddedView withSpacing:YES];
 		lastAddedView = [self addView:separatorView afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Bold
-	if (features & RichTextEditorFeatureBold || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureBold || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnBold afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Italic
-	if (features & RichTextEditorFeatureItalic || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureItalic || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnItalic afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Underline
-	if (features & RichTextEditorFeatureUnderline || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureUnderline || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnUnderline afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Strikethrough
-	if (features & RichTextEditorFeatureStrikeThrough || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureStrikeThrough || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnStrikeThrough afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Separator view after font properties.
-	if (features & RichTextEditorFeatureBold || features & RichTextEditorFeatureItalic || features & RichTextEditorFeatureUnderline || features & RichTextEditorFeatureStrikeThrough || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureBold || features & RichTextEditorFeatureItalic || features & RichTextEditorFeatureUnderline || features & RichTextEditorFeatureStrikeThrough || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Align left
-	if (features & RichTextEditorFeatureTextAlignmentLeft || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureTextAlignmentLeft || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnTextAlignmentLeft afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Align center
-	if (features & RichTextEditorFeatureTextAlignmentCenter || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureTextAlignmentCenter || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnTextAlignmentCenter afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Align right
-	if (features & RichTextEditorFeatureTextAlignmentRight || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureTextAlignmentRight || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnTextAlignmentRight afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Align justified
-	if (features & RichTextEditorFeatureTextAlignmentJustified || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureTextAlignmentJustified || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnTextAlignmentJustified afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Separator view after alignment section
-	if (features & RichTextEditorFeatureTextAlignmentLeft || features & RichTextEditorFeatureTextAlignmentCenter || features & RichTextEditorFeatureTextAlignmentRight || features & RichTextEditorFeatureTextAlignmentJustified || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureTextAlignmentLeft || features & RichTextEditorFeatureTextAlignmentCenter || features & RichTextEditorFeatureTextAlignmentRight || features & RichTextEditorFeatureTextAlignmentJustified || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Paragraph indentation
-	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnParagraphOutdent afterView:lastAddedView  withSpacing:YES];
 		lastAddedView = [self addView:self.btnParagraphIndent afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Paragraph first line indentation
-	if (features & RichTextEditorFeatureParagraphFirstLineIndentation || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureParagraphFirstLineIndentation || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnParagraphFirstLineHeadIndent afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Separator view after Indentation
-	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureParagraphFirstLineIndentation || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureParagraphFirstLineIndentation || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Background color
-	if (features & RichTextEditorFeatureTextBackgroundColor || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureTextBackgroundColor || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnBackgroundColor afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Text color
-	if (features & RichTextEditorFeatureTextForegroundColor || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureTextForegroundColor || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnForegroundColor afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Separator view after color section
-	if (features & RichTextEditorFeatureTextBackgroundColor || features & RichTextEditorFeatureTextForegroundColor || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureTextBackgroundColor || features & RichTextEditorFeatureTextForegroundColor || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Bullet List
-	if (features & RichTextEditorFeatureBulletList || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureBulletList || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnBulletList afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Separator view after color section
-	if (features & RichTextEditorFeatureBulletList || features & RichTextEditorFeatureAll)
-	{
+	if (features & RichTextEditorFeatureBulletList || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// I think he wanted TextAttachment here, not BulletList
-	if ((features & RichTextEditorTextAttachment || features & RichTextEditorFeatureAll) && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-	{
+	if ((features & RichTextEditorTextAttachment || features & RichTextEditorFeatureAll) && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
 		lastAddedView = [self addView:self.btnTextAttachment afterView:lastAddedView withSpacing:YES];
 	}
 	
 	[self scrollRectToVisible:visibleRect animated:NO];
 }
 
-- (void)initializeButtons
-{
+- (void)initializeButtons {
 	self.btnFont = [self buttonWithImageNamed:@"keyboard-arrow-up"
 										width:120
 								  andSelector:@selector(fontSelected:)];
@@ -539,8 +497,7 @@
 	}
 }
 
-- (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)imageName width:(NSInteger)width andSelector:(SEL)selector
-{
+- (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)imageName width:(NSInteger)width andSelector:(SEL)selector {
 	RichTextEditorToggleButton *button = [[RichTextEditorToggleButton alloc] init];
 	[button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
 	[button setFrame:CGRectMake(0, 0, width, 0)];
@@ -555,13 +512,11 @@
 	return button;
 }
 
-- (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)image andSelector:(SEL)selector
-{
+- (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)image andSelector:(SEL)selector {
 	return [self buttonWithImageNamed:image width:ITEM_WIDTH andSelector:selector];
 }
 
-- (UIView *)separatorView
-{
+- (UIView *)separatorView {
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, self.frame.size.height)];
 	view.backgroundColor = [UIColor lightGrayColor];
 	
@@ -569,13 +524,13 @@
 }
 
 // @return Returns the added view.
-- (UIView*)addView:(UIView *)view afterView:(UIView *)otherView withSpacing:(BOOL)space
-{
+- (UIView*)addView:(UIView *)view afterView:(UIView *)otherView withSpacing:(BOOL)space {
 	CGRect otherViewRect = (otherView) ? otherView.frame : CGRectZero;
 	CGRect rect = view.frame;
 	rect.origin.x = otherViewRect.size.width + otherViewRect.origin.x;
-	if (space)
+    if (space) {
 		rect.origin.x += ITEM_SEPARATOR_SPACE;
+    }
 	
 	rect.origin.y = ITEM_TOP_AND_BOTTOM_BORDER;
 	rect.size.height = self.frame.size.height - (2*ITEM_TOP_AND_BOTTOM_BORDER);
@@ -587,12 +542,10 @@
 	return view;
 }
 
-- (void)updateContentSize
-{
+- (void)updateContentSize {
 	NSInteger maxViewlocation = 0;
 	
-	for (UIView *view in self.subviews)
-	{
+	for (UIView *view in self.subviews) {
 		NSInteger endLocation = view.frame.size.width + view.frame.origin.x;
 		
 		if (endLocation > maxViewlocation)
@@ -602,34 +555,27 @@
 	self.contentSize = CGSizeMake(maxViewlocation+ITEM_SEPARATOR_SPACE, self.frame.size.height);
 }
 
-- (void)presentViewController:(UIViewController *)viewController fromView:(UIView *)view
-{
-	if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal)
-	{
+- (void)presentViewController:(UIViewController *)viewController fromView:(UIView *)view {
+	if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal) {
 		viewController.modalPresentationStyle = [self.dataSource modalPresentationStyleForRichTextEditorToolbar];
 		viewController.modalTransitionStyle = [self.dataSource modalTransitionStyleForRichTextEditorToolbar];
 		[[self.dataSource firstAvailableViewControllerForRichTextEditorToolbar] presentViewController:viewController animated:YES completion:nil];
 		self.presentedViewController = viewController;
 	}
-	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover)
-	{
+	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover) {
 		id <RichTextEditorPopover> popover = [self popoverWithViewController:viewController];
 		[popover presentPopoverFromRect:view.frame inView:self permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
 	}
 }
 
-- (id <RichTextEditorPopover>)popoverWithViewController:(UIViewController *)viewController
-{
+- (id <RichTextEditorPopover>)popoverWithViewController:(UIViewController *)viewController {
 	id <RichTextEditorPopover> popover;
 	
-	if (!popover)
-	{
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-		{
+	if (!popover) {
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
 			popover = (id<RichTextEditorPopover>) [[UIPopoverController alloc] initWithContentViewController:viewController];
 		}
-		else
-		{
+		else {
 			popover = (id<RichTextEditorPopover>) [[UIPopoverController alloc] initWithContentViewController:viewController];
 		}
 	}
@@ -640,18 +586,17 @@
 	return popover;
 }
 
-- (void)dismissViewController
-{
-	if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal)
-	{
-		if (self.presentedViewController)
+- (void)dismissViewController {
+	if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal) {
+        if (self.presentedViewController) {
 			[self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-		else
+        }
+        else {
 			[[self.dataSource firstAvailableViewControllerForRichTextEditorToolbar] dismissViewControllerAnimated:YES completion:nil];
+        }
 		self.presentedViewController = nil; // it's already a weak pointer, but just for safety's sake...
 	}
-	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover)
-	{
+	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover) {
 		[self.popover dismissPopoverAnimated:YES];
 	}
 	
@@ -660,87 +605,72 @@
 
 #pragma mark - RichTextEditorColorPickerViewControllerDelegate & RichTextEditorColorPickerViewControllerDataSource Methods -
 
-- (void)richTextEditorColorPickerViewControllerDidSelectColor:(UIColor *)color withAction:(RichTextEditorColorPickerAction)action
-{
-	if (action == RichTextEditorColorPickerActionTextBackgroundColor)
-	{
+- (void)richTextEditorColorPickerViewControllerDidSelectColor:(UIColor *)color withAction:(RichTextEditorColorPickerAction)action {
+	if (action == RichTextEditorColorPickerActionTextBackgroundColor) {
 		[self.toolbarDelegate richTextEditorToolbarDidSelectTextBackgroundColor:color];
 	}
-	else
-	{
+	else {
 		[self.toolbarDelegate richTextEditorToolbarDidSelectTextForegroundColor:color];
 	}
 	
 	[self dismissViewController];
 }
 
-- (void)richTextEditorColorPickerViewControllerDidSelectClose
-{
+- (void)richTextEditorColorPickerViewControllerDidSelectClose {
 	[self dismissViewController];
 }
 
-- (BOOL)richTextEditorColorPickerViewControllerShouldDisplayToolbar
-{
+- (BOOL)richTextEditorColorPickerViewControllerShouldDisplayToolbar {
 	return ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal) ? YES: NO;
 }
 
 #pragma mark - RichTextEditorFontSizePickerViewControllerDelegate & RichTextEditorFontSizePickerViewControllerDataSource Methods -
 
-- (void)richTextEditorFontSizePickerViewControllerDidSelectFontSize:(NSNumber *)fontSize
-{
+- (void)richTextEditorFontSizePickerViewControllerDidSelectFontSize:(NSNumber *)fontSize {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectFontSize:fontSize];
 	[self dismissViewController];
 }
 
-- (void)richTextEditorFontSizePickerViewControllerDidSelectClose
-{
+- (void)richTextEditorFontSizePickerViewControllerDidSelectClose {
 	[self dismissViewController];
 }
 
-- (BOOL)richTextEditorFontSizePickerViewControllerShouldDisplayToolbar
-{
+- (BOOL)richTextEditorFontSizePickerViewControllerShouldDisplayToolbar {
 	return ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal) ? YES: NO;
 }
 
-- (NSArray *)richTextEditorFontSizePickerViewControllerCustomFontSizesForSelection
-{
+- (NSArray *)richTextEditorFontSizePickerViewControllerCustomFontSizesForSelection {
 	return [self.dataSource fontSizeSelectionForRichTextEditorToolbar];
 }
 
 #pragma mark - RichTextEditorFontPickerViewControllerDelegate & RichTextEditorFontPickerViewControllerDataSource Methods -
 
-- (void)richTextEditorFontPickerViewControllerDidSelectFontWithName:(NSString *)fontName
-{
+- (void)richTextEditorFontPickerViewControllerDidSelectFontWithName:(NSString *)fontName {
 	[self.toolbarDelegate richTextEditorToolbarDidSelectFontWithName:fontName];
 	[self dismissViewController];
 }
 
-- (void)richTextEditorFontPickerViewControllerDidSelectClose
-{
+- (void)richTextEditorFontPickerViewControllerDidSelectClose {
 	[self dismissViewController];
 }
 
-- (NSArray *)richTextEditorFontPickerViewControllerCustomFontFamilyNamesForSelection
-{
+- (NSArray *)richTextEditorFontPickerViewControllerCustomFontFamilyNamesForSelection {
 	return [self.dataSource fontFamilySelectionForRichTextEditorToolbar];
 }
 
-- (BOOL)richTextEditorFontPickerViewControllerShouldDisplayToolbar
-{
+- (BOOL)richTextEditorFontPickerViewControllerShouldDisplayToolbar {
 	return ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal) ? YES: NO;
 }
 
 #pragma mark - UIImagePickerViewControllerDelegate -
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
 	[self.toolbarDelegate richTextEditorToolbarDidSelectTextAttachment:image];
 	[self dismissViewController];
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
 	[self dismissViewController];
 }
 
