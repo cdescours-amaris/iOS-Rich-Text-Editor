@@ -2,7 +2,7 @@
 
 ### 0.9 TODO
 - [x] Drop WEPopover dependency and use native popovers on iPhone (see [here](https://rbnsn.me/ios-8-popover-presentations) and [here](https://richardallen.me/2014/11/28/popovers.html)). -- Dropped dependency but decided not to use popovers on iPhone per [interface guidelines](https://developer.apple.com/ios/human-interface-guidelines/ui-views/popovers/). 
-- [ ] Change style to have starting brackets on the same line as if statements & function calls (etc.) -- This is now done in RichTextEditor.m but not other files
+- [x] Change style to have starting brackets on the same line as if statements & function calls (etc.)
 - [ ] Bug fixing/checking
 - [ ] Fix NSUndoManager undo/redo when using bulleted lists
 - [x] Make the toolbar more pretty
@@ -55,8 +55,7 @@ If text is set before the view is fully shown, the text may start scrolled to th
 Font size selection can be customized by implementing the following data source method
 
 ```objective-c
-- (NSArray *)fontSizeSelectionForRichTextEditor:(RichTextEditor *)richTextEditor
-{
+- (NSArray *)fontSizeSelectionForRichTextEditor:(RichTextEditor *)richTextEditor {
 	// pass an array of NSNumbers
 	return @[@5, @10, @20, @30];
 }
@@ -78,8 +77,7 @@ Font family selection can be customized by implementing the following data sourc
 
 You can switch between popover, or modal (presenting font-picker, font-size-picker, color-picker dialogs) by implementing the following data source method
 ```objective-c
-- (RichTextEditorToolbarPresentationStyle)presentarionStyleForRichTextEditor:(RichTextEditor *)richTextEditor
-{
+- (RichTextEditorToolbarPresentationStyle)presentarionStyleForRichTextEditor:(RichTextEditor *)richTextEditor {
   // RichTextEditorToolbarPresentationStyleModal Or RichTextEditorToolbarPresentationStylePopover
 	return RichTextEditorToolbarPresentationStyleModal;
 }
