@@ -769,7 +769,7 @@
 			else {
 				paragraphStyle.firstLineHeadIndent = prevParaStyle.firstLineHeadIndent;
 			}
-			paragraphStyle.headIndent = expectedStringSize.width;
+			paragraphStyle.headIndent = expectedStringSize.width + paragraphStyle.firstLineHeadIndent;
 			
 			rangeOffset = rangeOffset + self.BULLET_STRING.length;
 			isInBulletedList = YES;
