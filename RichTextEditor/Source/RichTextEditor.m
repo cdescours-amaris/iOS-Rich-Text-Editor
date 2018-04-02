@@ -56,6 +56,8 @@
 @property NSString *BULLET_STRING;
 @property NSUInteger LEVELS_OF_UNDO;
 
+@property NSUInteger previousCursorPosition;
+
 @property BOOL justDeletedBackward;
 @property BOOL isInTextDidChange;
 
@@ -211,16 +213,18 @@
 }
 
 - (void)textViewDidChangeSelection:(UITextView *)textView {
-	//NSLog(@"[RTE] Changed selection to location: %lu, length: %lu", (unsigned long)textView.selectedRange.location, (unsigned long)textView.selectedRange.length);
+//    NSLog(@"[RTE] Changed selection to location: %lu, length: %lu", (unsigned long)textView.selectedRange.location, (unsigned long)textView.selectedRange.length);
     [self updateToolbarState];
     [self setNeedsLayout];
     [self scrollRangeToVisible:self.selectedRange]; // fixes issue with cursor moving to top via keyboard and RTE not scrolling
     
 	NSRange rangeOfCurrentParagraph = [self.attributedText firstParagraphRangeFromTextRange:self.selectedRange];
 	BOOL currentParagraphHasBullet = [[self.attributedText.string substringFromIndex:rangeOfCurrentParagraph.location] hasPrefix:self.BULLET_STRING];
+//    NSLog(@"[RTE] Substring: %@, from index: %lu", [self.attributedText.string substringFromIndex:rangeOfCurrentParagraph.location], rangeOfCurrentParagraph.location);
 	if (currentParagraphHasBullet) {
         self.inBulletedList = YES;
 	}
+    [self moveCursorAroundBulletListIfApplicableWithBeginningLocation:rangeOfCurrentParagraph.location andCurrent:textView.selectedRange.location];
 	[self sendDelegateTypingAttrsUpdate];
 	if (self.delegate_interceptor.receiver && [self.delegate_interceptor.receiver respondsToSelector:@selector(textViewDidChangeSelection:)]) {
 		[self.delegate_interceptor.receiver textViewDidChangeSelection:self];
@@ -229,11 +233,13 @@
 
 - (BOOL)isInBulletedList {
 	NSRange rangeOfCurrentParagraph = [self.textStorage firstParagraphRangeFromTextRange:self.selectedRange];
+    NSLog(@"Is in Bulleted List: %@", self.textStorage.string);
 	return [[self.textStorage.string substringFromIndex:rangeOfCurrentParagraph.location] hasPrefix:self.BULLET_STRING];
 }
 
 - (BOOL)isInEmptyBulletedListItem {
 	NSRange rangeOfCurrentParagraph = [self.textStorage firstParagraphRangeFromTextRange:self.selectedRange];
+    NSLog(@"Is in Empty Bulleted List: %@", self.textStorage.string);
 	return [[self.textStorage.string substringFromIndex:rangeOfCurrentParagraph.location] isEqualToString:self.BULLET_STRING];
 }
 
@@ -1087,6 +1093,37 @@
         screenBounds.size = CGSizeMake(height, width);
     }
     return screenBounds;
+}
+
+- (void)moveCursorAroundBulletListIfApplicableWithBeginningLocation:(NSUInteger)begin andCurrent:(NSUInteger)current {
+//    NSLog(@"[RTE] Move around beginning: %lu, current: %lu, previous: %lu", (unsigned long)begin, (unsigned long)current, (unsigned long)self.previousCursorPosition);
+    NSUInteger previous = self.previousCursorPosition;
+    if (self.inBulletedList) {
+        if (begin == 0 && current <= 1) { // move cursor back to position 2
+            NSLog(@"Should move cursor back to position 2");
+//            NSRange rangeOfCurrentParagraph = [self.textStorage firstParagraphRangeFromTextRange:self.selectedRange];
+//            NSDictionary *dictionary = [self dictionaryAtIndex:begin];
+//            NSMutableParagraphStyle *paragraphStyle = [[dictionary objectForKey:NSParagraphStyleAttributeName] mutableCopy];
+//            paragraphStyle.firstLineHeadIndent = 0;
+//            paragraphStyle.headIndent = 0;
+//            [self applyAttributes:paragraphStyle forKey:NSParagraphStyleAttributeName atRange:rangeOfCurrentParagraph];
+//            [self setIndentationWithAttributes:dictionary paragraphStyle:paragraphStyle atRange:rangeOfCurrentParagraph];
+        }
+        else if (begin > 0) {
+            if (current == begin && previous > current) {
+                // move cursor to position begin + 2
+                NSLog(@"Should move cursor to position %lu", (unsigned long)begin + 2);
+            }
+            else if (current == (begin + 1) && current < previous) {
+                // move cursor to  position begin - 1
+                NSLog(@"Should move cursor to position %lu", (unsigned long)begin - 1);
+            }
+        }
+        else {
+            return;
+        }
+    }
+    self.previousCursorPosition = current;
 }
 
 - (void)applyBulletListIfApplicable {
