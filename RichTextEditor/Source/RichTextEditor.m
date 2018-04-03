@@ -1100,23 +1100,36 @@
     NSUInteger previous = self.previousCursorPosition;
     if (self.inBulletedList) {
         if (begin == 0 && current <= 1) { // move cursor back to position 2
-            NSLog(@"Should move cursor back to position 2");
-//            NSRange rangeOfCurrentParagraph = [self.textStorage firstParagraphRangeFromTextRange:self.selectedRange];
-//            NSDictionary *dictionary = [self dictionaryAtIndex:begin];
-//            NSMutableParagraphStyle *paragraphStyle = [[dictionary objectForKey:NSParagraphStyleAttributeName] mutableCopy];
-//            paragraphStyle.firstLineHeadIndent = 0;
-//            paragraphStyle.headIndent = 0;
-//            [self applyAttributes:paragraphStyle forKey:NSParagraphStyleAttributeName atRange:rangeOfCurrentParagraph];
-//            [self setIndentationWithAttributes:dictionary paragraphStyle:paragraphStyle atRange:rangeOfCurrentParagraph];
+            NSLog(@"Should move cursor to position 2");
+            self.selectedRange = NSMakeRange(2, 0);
         }
         else if (begin > 0) {
-            if (current == begin && previous > current) {
-                // move cursor to position begin + 2
-                NSLog(@"Should move cursor to position %lu", (unsigned long)begin + 2);
+            if (current == begin && (previous > current || previous < current)) {
+                // cursor moved from in bullet to front of bullet
+                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin+2];
+                self.selectedRange = NSMakeRange(begin + 2, 0);
             }
-            else if (current == (begin + 1) && current < previous) {
-                // move cursor to  position begin - 1
-                NSLog(@"Should move cursor to position %lu", (unsigned long)begin - 1);
+            else if (current == (begin + 1) && previous > current) {
+                // cursor moved from in bullet to beside of bullet
+                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin-1];
+                self.selectedRange = NSMakeRange(begin - 1, 0);
+            }
+//            else if (current == begin && previous < current) {
+//                // cursor moved from above bullet to front of bullet
+//                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin+2];
+//                self.selectedRange = NSMakeRange(begin + 2, 0);
+//            }
+            else if (current == (begin + 1) && previous < current) {
+                // cursor moved from above bullet to beside of bullet
+                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin+2];
+                self.selectedRange = NSMakeRange(begin + 2, 0);
+            }
+//            else if (current == (begin + 2) && previous == begin) {
+//                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin-1];
+//                self.selectedRange = NSMakeRange(begin - 1, 0);
+//            }
+            else {
+                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:current];
             }
         }
         else {
@@ -1124,6 +1137,13 @@
         }
     }
     self.previousCursorPosition = current;
+}
+
+- (void)logMovingCursorWithBegin:(NSUInteger)begin Current:(NSUInteger)current Previous:(NSUInteger)previous ShouldMoveTo:(NSUInteger)move {
+    if (move == current) {
+        return;
+    }
+    NSLog(@"Should move cursor position from %lu to %lu\nbegin: %lu\nprevious: %lu\ncurrent: %lu", (unsigned long)current, (unsigned long)move, (unsigned long)begin, (unsigned long)previous, (unsigned long)current);
 }
 
 - (void)applyBulletListIfApplicable {
