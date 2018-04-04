@@ -1103,7 +1103,7 @@
         }
         else if (begin > 0) {
             if ((current == begin && (previous > current || previous < current)) ||
-                (current == (begin + 1) && previous < current)) { // cursor moved from in bullet to front of bullet
+                (current == (begin + 1) && (previous < current || current == previous))) { // cursor moved from in bullet to front of bullet
                 [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin+2];
                 self.selectedRange = NSMakeRange(begin + 2, 0);
             }
