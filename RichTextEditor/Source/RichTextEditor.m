@@ -1096,54 +1096,36 @@
 }
 
 - (void)moveCursorAroundBulletListIfApplicableWithBeginningLocation:(NSUInteger)begin andCurrent:(NSUInteger)current {
-//    NSLog(@"[RTE] Move around beginning: %lu, current: %lu, previous: %lu", (unsigned long)begin, (unsigned long)current, (unsigned long)self.previousCursorPosition);
     NSUInteger previous = self.previousCursorPosition;
     if (self.inBulletedList) {
         if (begin == 0 && current <= 1) { // move cursor back to position 2
-            NSLog(@"Should move cursor to position 2");
             self.selectedRange = NSMakeRange(2, 0);
         }
         else if (begin > 0) {
-            if (current == begin && (previous > current || previous < current)) {
-                // cursor moved from in bullet to front of bullet
+            if ((current == begin && (previous > current || previous < current)) ||
+                (current == (begin + 1) && previous < current)) { // cursor moved from in bullet to front of bullet
                 [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin+2];
                 self.selectedRange = NSMakeRange(begin + 2, 0);
             }
-            else if (current == (begin + 1) && previous > current) {
-                // cursor moved from in bullet to beside of bullet
+            else if (current == (begin + 1) && previous > current) { // cursor moved from in bullet to beside of bullet
                 [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin-1];
                 self.selectedRange = NSMakeRange(begin - 1, 0);
             }
-//            else if (current == begin && previous < current) {
-//                // cursor moved from above bullet to front of bullet
-//                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin+2];
-//                self.selectedRange = NSMakeRange(begin + 2, 0);
-//            }
-            else if (current == (begin + 1) && previous < current) {
-                // cursor moved from above bullet to beside of bullet
-                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin+2];
-                self.selectedRange = NSMakeRange(begin + 2, 0);
-            }
-//            else if (current == (begin + 2) && previous == begin) {
-//                [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:begin-1];
-//                self.selectedRange = NSMakeRange(begin - 1, 0);
-//            }
             else {
                 [self logMovingCursorWithBegin:begin Current:current Previous:previous ShouldMoveTo:current];
             }
         }
-        else {
-            return;
-        }
     }
-    self.previousCursorPosition = current;
+    self.previousCursorPosition = self.selectedRange.location;
 }
 
 - (void)logMovingCursorWithBegin:(NSUInteger)begin Current:(NSUInteger)current Previous:(NSUInteger)previous ShouldMoveTo:(NSUInteger)move {
     if (move == current) {
-        return;
+        NSLog(@"Previous: %lu, Current: %lu", (unsigned long)previous, (unsigned long)current);
     }
-    NSLog(@"Should move cursor position from %lu to %lu\nbegin: %lu\nprevious: %lu\ncurrent: %lu", (unsigned long)current, (unsigned long)move, (unsigned long)begin, (unsigned long)previous, (unsigned long)current);
+    else {
+        NSLog(@"Should move cursor position from %lu to %lu\nbegin: %lu\nprevious: %lu\ncurrent: %lu", (unsigned long)current, (unsigned long)move, (unsigned long)begin, (unsigned long)previous, (unsigned long)current);
+    }
 }
 
 - (void)applyBulletListIfApplicable {
