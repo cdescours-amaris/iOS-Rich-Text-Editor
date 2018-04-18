@@ -38,18 +38,16 @@
 		self.fontNames = customizedFontFamilies;
     }
     else {
-		self.fontNames = [[UIFont familyNames] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+		self.fontNames = [UIFont.familyNames sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     }
 	
 	if ([self.dataSource richTextEditorFontPickerViewControllerShouldDisplayToolbar]) {
-        CGFloat reservedSizeForStatusBar = (
-                                               UIDevice.currentDevice.systemVersion.floatValue >= 7.0
-                                            && !(   UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
-                                                 && self.modalPresentationStyle==UIModalPresentationFormSheet
-                                                 )
-                                            ) ? 20.:0.; //Add the size of the status bar for iOS 7, not on iPad presenting modal sheet
+        CGFloat reservedSizeForStatusBar = (UIDevice.currentDevice.systemVersion.floatValue >= 7.0 &&
+                                            !(UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad &&
+                                              self.modalPresentationStyle==UIModalPresentationFormSheet)
+                                            ) ? 20.:0.; // Add the size of the status bar for iOS 7, not on iPad presenting modal sheet
         
-        CGFloat toolbarHeight = 44 +reservedSizeForStatusBar;
+        CGFloat toolbarHeight = 44 + reservedSizeForStatusBar;
         
 		UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, toolbarHeight)];
 		toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -73,7 +71,6 @@
 	[self.view addSubview:self.tableview];
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    
     self.preferredContentSize = CGSizeMake(250, 400);
 #else
     

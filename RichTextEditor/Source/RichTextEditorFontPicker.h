@@ -9,13 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @protocol RichTextEditorFontPickerViewControllerDelegate <NSObject>
+
 - (void)richTextEditorFontPickerViewControllerDidSelectFontWithName:(NSString *)fontName;
 - (void)richTextEditorFontPickerViewControllerDidSelectClose;
+
 @end
 
 @protocol RichTextEditorFontPickerViewControllerDataSource <NSObject>
+
 - (NSArray *)richTextEditorFontPickerViewControllerCustomFontFamilyNamesForSelection;
 - (BOOL)richTextEditorFontPickerViewControllerShouldDisplayToolbar;
+
 @end
 
 @protocol RichTextEditorFontPicker <NSObject>

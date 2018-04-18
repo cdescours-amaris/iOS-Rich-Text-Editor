@@ -44,19 +44,19 @@
 		range.location-1 :
 		range.location;
 	
-	for (NSInteger i = startingRange ; i >= 0 ; i--) {
+	for (NSInteger i = startingRange; i >= 0; i--) {
 		char c = [self.string characterAtIndex:i];
 		if (c == '\n') {
-			start = i+1;
+			start = i + 1;
 			break;
 		}
 	}
 	
-	start = (start == -1) ? 0 : start;
+	start = start == -1 ? 0 : start;
 	
 	NSInteger moveForwardIndex = (range.location > start) ? range.location : start;
 	
-	for (NSInteger i = moveForwardIndex; i <= self.string.length-1 ; i++) {
+	for (NSInteger i = moveForwardIndex; i <= self.string.length - 1; i++) {
 		char c = [self.string characterAtIndex:i];
 		if (c == '\n') {
 			end = i;
@@ -64,7 +64,7 @@
 		}
 	}
 	
-	end = (end == -1) ? self.string.length : end;
+	end = end == -1 ? self.string.length : end;
 	length = end - start;
 	
 	return NSMakeRange(start, length);
@@ -92,7 +92,7 @@
 	NSMutableString *htmlString = [NSMutableString string];
 	NSArray *paragraphRanges = [self rangeOfParagraphsFromTextRange:NSMakeRange(0, self.string.length-1)];
 	
-	for (int i = 0; i < paragraphRanges.count ; i++) {
+	for (int i = 0; i < paragraphRanges.count; i++) {
 		NSValue *value = [paragraphRanges objectAtIndex:i];
 		NSRange range = [value rangeValue];
 		NSDictionary *paragraphDictionary = [self attributesAtIndex:range.location effectiveRange:nil];
@@ -139,11 +139,13 @@
 								  
 								  [fontString appendFormat:@"font-size:%.0fpx; ", font.pointSize];
 								  
-								  if (foregroundColor && [foregroundColor isKindOfClass:[UIColor class]])
+                                  if (foregroundColor && [foregroundColor isKindOfClass:[UIColor class]]) {
 									  [fontString appendFormat:@"color:%@; ", [self htmlRgbColor:foregroundColor]];
+                                  }
 								  
-								  if (backGroundColor && [backGroundColor isKindOfClass:[UIColor class]])
+                                  if (backGroundColor && [backGroundColor isKindOfClass:[UIColor class]]) {
 									  [fontString appendFormat:@"background-color:%@; ", [self htmlRgbColor:backGroundColor]];
+                                  }
 								  
 								  [fontString appendString:@"\" "];
 								  // End Style

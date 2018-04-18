@@ -34,25 +34,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	self.view.backgroundColor = [UIColor whiteColor];
+	self.view.backgroundColor = UIColor.whiteColor;
 	
 	UIButton *btnDone = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 60, 30)];
 	[btnDone addTarget:self action:@selector(doneSelected:) forControlEvents:UIControlEventTouchUpInside];
-	[btnDone.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
-	[btnDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    btnDone.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+	[btnDone setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
 	[btnDone setTitle:@"Select" forState:UIControlStateNormal];
 	[self.view addSubview:btnDone];
 
 	UIButton *btnClear = [[UIButton alloc] initWithFrame:CGRectMake(65, 5, 60, 30)];
 	[btnClear addTarget:self action:@selector(clearSelected:) forControlEvents:UIControlEventTouchUpInside];
-	[btnClear.titleLabel setFont:[UIFont boldSystemFontOfSize:12]];
-	[btnClear setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    btnClear.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+	[btnClear setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
 	[btnClear setTitle:@"Clear" forState:UIControlStateNormal];
 	[self.view addSubview:btnClear];
 	
 	self.selectedColorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 35 - 5, 5, 35, 30)];
-	self.selectedColorView.backgroundColor = [UIColor blackColor];
-	self.selectedColorView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+	self.selectedColorView.backgroundColor = UIColor.blackColor;
+	self.selectedColorView.layer.borderColor = UIColor.lightGrayColor.CGColor;
 	self.selectedColorView.layer.borderWidth = 1;
 	self.selectedColorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 	[self.view addSubview:self.selectedColorView];
@@ -60,19 +60,17 @@
 	NSBundle *frameWorkBundle = [NSBundle bundleForClass:[self class]];
 	UIImage *image = [UIImage imageNamed:@"colors.jpg" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
 	self.colorsImageView = [[UIImageView alloc] initWithImage:image];;
-	self.colorsImageView.frame = CGRectMake(2, 40, self.view.frame.size.width-4, self.view.frame.size.height - 40 - 2);
+	self.colorsImageView.frame = CGRectMake(2, 40, self.view.frame.size.width - 4, self.view.frame.size.height - 40 - 2);
 	self.colorsImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	self.colorsImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+	self.colorsImageView.layer.borderColor = UIColor.lightGrayColor.CGColor;
 	self.colorsImageView.layer.borderWidth = 0;
 	[self.view addSubview:self.colorsImageView];
 	
 	if ([self.dataSource richTextEditorColorPickerViewControllerShouldDisplayToolbar]) {
-        CGFloat reservedSizeForStatusBar = (
-                                            UIDevice.currentDevice.systemVersion.floatValue >= 7.0
-                                            && !(   UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad
-                                                 && self.modalPresentationStyle==UIModalPresentationFormSheet
-                                                 )
-                                            ) ? 20.:0.; //Add the size of the status bar for iOS 7, not on iPad presenting modal sheet
+        CGFloat reservedSizeForStatusBar = (UIDevice.currentDevice.systemVersion.floatValue >= 7.0 &&
+                                            !(UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPad &&
+                                                 self.modalPresentationStyle == UIModalPresentationFormSheet)
+                                            ) ? 20.:0.; // Add the size of the status bar for iOS 7, not on iPad presenting modal sheet
 
         CGFloat toolbarHeight = 44 +reservedSizeForStatusBar;
 
@@ -99,14 +97,13 @@
 		
 		UIBarButtonItem *selectedColorItem = [[UIBarButtonItem alloc] initWithCustomView:self.selectedColorView];
 		
-		[toolbar setItems:@[doneItem, clearItem, flexibleSpaceItem ,selectedColorItem, flexibleSpaceItem , closeItem]];
+		[toolbar setItems:@[doneItem, clearItem, flexibleSpaceItem, selectedColorItem, flexibleSpaceItem, closeItem]];
 		[self.view addSubview:toolbar];
 		
-		self.colorsImageView.frame = CGRectMake(2, toolbarHeight+2, self.view.frame.size.width-4, self.view.frame.size.height - (toolbarHeight+4));
+		self.colorsImageView.frame = CGRectMake(2, toolbarHeight + 2, self.view.frame.size.width - 4, self.view.frame.size.height - (toolbarHeight + 4));
 	}
 	
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
-    
     self.preferredContentSize = CGSizeMake(300, 240);
 #else
     
@@ -120,8 +117,9 @@
 - (void)populateColorsForPoint:(CGPoint)point {
 	CGPoint pointInView = [self.colorsImageView convertPoint:point toView:self.colorsImageView];
 	
-	if (CGRectContainsPoint(self.colorsImageView.bounds, pointInView))
+    if (CGRectContainsPoint(self.colorsImageView.bounds, pointInView)) {
 		self.selectedColorView.backgroundColor = [self.colorsImageView colorOfPoint:pointInView];
+    }
 }
 
 #pragma mark - IBActions -

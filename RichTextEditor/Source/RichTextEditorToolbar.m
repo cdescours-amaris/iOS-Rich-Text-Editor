@@ -76,7 +76,7 @@
 		
 		self.backgroundColor = [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1];
 		self.layer.borderWidth = .7;
-		self.layer.borderColor = [UIColor lightGrayColor].CGColor;
+		self.layer.borderColor = UIColor.lightGrayColor.CGColor;
 		
 		[self initializeButtons];
         [self populateToolbar];
@@ -105,7 +105,7 @@
 	self.btnTextAlignmentCenter.on = NO;
 	self.btnTextAlignmentRight.on = NO;
 	self.btnTextAlignmentJustified.on = NO;
-	self.btnParagraphFirstLineHeadIndent.on = (paragraphStyle.firstLineHeadIndent > paragraphStyle.headIndent) ? YES : NO;
+	self.btnParagraphFirstLineHeadIndent.on = paragraphStyle.firstLineHeadIndent > paragraphStyle.headIndent ? YES : NO;
 	
 	switch (paragraphStyle.alignment) {
 		case NSTextAlignmentLeft:
@@ -126,10 +126,10 @@
 	}
 	
 	NSNumber *existingUnderlineStyle = [attributes objectForKey:NSUnderlineStyleAttributeName];
-	self.btnUnderline.on = (!existingUnderlineStyle || existingUnderlineStyle.intValue == NSUnderlineStyleNone) ? NO :YES;
+	self.btnUnderline.on = !existingUnderlineStyle || existingUnderlineStyle.intValue == NSUnderlineStyleNone ? NO :YES;
 	
 	NSNumber *existingStrikeThrough = [attributes objectForKey:NSStrikethroughStyleAttributeName];
-	self.btnStrikeThrough.on = (!existingStrikeThrough || existingStrikeThrough.intValue == NSUnderlineStyleNone) ? NO :YES;
+	self.btnStrikeThrough.on = !existingStrikeThrough || existingStrikeThrough.intValue == NSUnderlineStyleNone ? NO :YES;
 	
 	[self populateToolbar];
 }
@@ -196,7 +196,7 @@
 	UIViewController <RichTextEditorFontPicker> *fontPicker = [self.dataSource fontPickerForRichTextEditorToolbar];
 	
     if (!fontPicker) {
-		fontPicker= [[RichTextEditorFontPickerViewController alloc] init];
+		fontPicker = [[RichTextEditorFontPickerViewController alloc] init];
     }
     
 	fontPicker.delegate = self;
@@ -521,10 +521,10 @@
 - (RichTextEditorToggleButton *)createToolbarButtonWithWidth:(NSInteger)width andSelector:(SEL)selector {
     RichTextEditorToggleButton *button = [[RichTextEditorToggleButton alloc] init];
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
-    [button setFrame:CGRectMake(0, 0, width, 0)];
-    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:10]];
-    [button.titleLabel setTextColor:[UIColor blackColor]];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 0, width, 0);
+    button.titleLabel.font = [UIFont boldSystemFontOfSize:10];
+    button.titleLabel.textColor = UIColor.blackColor;
+    [button setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
     return button;
 }
 
@@ -572,14 +572,14 @@
 
 - (UIView *)separatorView {
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, self.frame.size.height)];
-	view.backgroundColor = [UIColor lightGrayColor];
+	view.backgroundColor = UIColor.lightGrayColor;
 	
 	return view;
 }
 
 // @return Returns the added view.
 - (UIView*)addView:(UIView *)view afterView:(UIView *)otherView withSpacing:(BOOL)space {
-	CGRect otherViewRect = (otherView) ? otherView.frame : CGRectZero;
+	CGRect otherViewRect = otherView ? otherView.frame : CGRectZero;
 	CGRect rect = view.frame;
 	rect.origin.x = otherViewRect.size.width + otherViewRect.origin.x;
     if (space) {
@@ -587,7 +587,7 @@
     }
 	
 	rect.origin.y = ITEM_TOP_AND_BOTTOM_BORDER;
-	rect.size.height = self.frame.size.height - (2*ITEM_TOP_AND_BOTTOM_BORDER);
+	rect.size.height = self.frame.size.height - (2 * ITEM_TOP_AND_BOTTOM_BORDER);
 	view.frame = rect;
 	view.autoresizingMask = UIViewAutoresizingFlexibleHeight;
 	
@@ -601,12 +601,12 @@
 	
 	for (UIView *view in self.subviews) {
 		NSInteger endLocation = view.frame.size.width + view.frame.origin.x;
-		
-		if (endLocation > maxViewlocation)
+        if (endLocation > maxViewlocation) {
 			maxViewlocation = endLocation;
+        }
 	}
 	
-	self.contentSize = CGSizeMake(maxViewlocation+ITEM_SEPARATOR_SPACE, self.frame.size.height);
+	self.contentSize = CGSizeMake(maxViewlocation + ITEM_SEPARATOR_SPACE, self.frame.size.height);
 }
 
 - (void)presentViewController:(UIViewController *)viewController fromView:(UIView *)view {
@@ -675,7 +675,7 @@
 }
 
 - (BOOL)richTextEditorColorPickerViewControllerShouldDisplayToolbar {
-	return ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal) ? YES: NO;
+	return [self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal;
 }
 
 #pragma mark - RichTextEditorFontSizePickerViewControllerDelegate & RichTextEditorFontSizePickerViewControllerDataSource Methods -

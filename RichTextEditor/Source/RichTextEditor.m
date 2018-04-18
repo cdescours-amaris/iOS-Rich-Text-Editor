@@ -98,21 +98,14 @@
 	self.delegate_interceptor.receiver = newDelegate;
 }
 
+- (id)delegate {
+    return self.delegate_interceptor.receiver;
+}
+
 - (void)setDataSource:(id<RichTextEditorDataSource>)dataSource {
     _dataSource = dataSource;
     [self.toolBar redraw];
 }
-
-//- (id<RichTextEditorDataSource>)dataSource {
-//    return _dataSource;
-//}
-
-/*
- // TODO: Figure out if this can be overridden somehow without messing up the delegation system
-- (id)delegate {
-	return self.delegate_interceptor.receiver;
-}
-*/
 
 - (id)textViewDelegate {
 	return self.delegate_interceptor.receiver;
@@ -248,7 +241,7 @@
 
 - (void)sendDelegateTypingAttrsUpdate {
 	if (self.rteDelegate) {
-		NSDictionary *attributes = [self typingAttributes];
+		NSDictionary *attributes = self.typingAttributes;
 		UIFont *font = [attributes objectForKey:NSFontAttributeName];
 		UIColor *fontColor = [attributes objectForKey:NSForegroundColorAttributeName];
 		UIColor *backgroundColor = [attributes objectForKey:NSBackgroundColorAttributeName]; // may want NSBackgroundColorAttributeName
@@ -264,7 +257,7 @@
 }
 
 - (BOOL)isCurrentFontUnderlined {
-	NSDictionary *dictionary = [self typingAttributes];
+	NSDictionary *dictionary = self.typingAttributes;
 	NSNumber *existingUnderlineStyle = [dictionary objectForKey:NSUnderlineStyleAttributeName];
 	
 	if (!existingUnderlineStyle || existingUnderlineStyle.intValue == NSUnderlineStyleNone) {
@@ -284,11 +277,11 @@
 - (void)paste:(id)sender {
 	[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangePaste];
 	if (self.allowsRichTextPasteOnlyFromThisClass) {
-		if ([[UIPasteboard generalPasteboard] dataForPasteboardType:[RichTextEditor pasteboardDataType]]) {
+		if ([UIPasteboard.generalPasteboard dataForPasteboardType:[RichTextEditor pasteboardDataType]]) {
 			[super paste:sender]; // just call paste so we don't have to bother doing the check again
 		}
 		else {
-			[self pasteAsPlainText:(NSString*)[[UIPasteboard generalPasteboard] dataForPasteboardType:(NSString*)kUTTypeUTF8PlainText]];
+			[self pasteAsPlainText:(NSString*)[UIPasteboard.generalPasteboard dataForPasteboardType:(NSString*)kUTTypeUTF8PlainText]];
 		}
 	}
 	else {
@@ -311,7 +304,7 @@
 
 - (void)copy:(id)sender {
 	[super copy:sender];
-	UIPasteboard *currentPasteboard = [UIPasteboard generalPasteboard];
+	UIPasteboard *currentPasteboard = UIPasteboard.generalPasteboard;
 	[currentPasteboard setData:[@"" dataUsingEncoding:NSUTF8StringEncoding] forPasteboardType:[RichTextEditor pasteboardDataType]];
 }
 
@@ -362,8 +355,9 @@
                 (features & RichTextEditorFeatureStrikeThrough || features & RichTextEditorFeatureAll);
     }
     
-    if (action == @selector(selectParagraph:) && self.selectedRange.length > 0)
+    if (action == @selector(selectParagraph:) && self.selectedRange.length > 0) {
         return YES;
+    }
 	
     return [super canPerformAction:action withSender:sender];
 }
@@ -392,15 +386,15 @@
 	UIMenuItem *underlineItem = [[UIMenuItem alloc] initWithTitle:@"Underline" action:@selector(richTextEditorToolbarDidSelectUnderline)];
 	//UIMenuItem *strikeThroughItem = [[UIMenuItem alloc] initWithTitle:@"Strike" action:@selector(richTextEditorToolbarDidSelectStrikeThrough)]; // buggy on ios 8, scrolls the text for some reason; not sure why
 	
-	[[UIMenuController sharedMenuController] setMenuItems:@[selectParagraph, boldItem, italicItem, underlineItem]];
+	[UIMenuController.sharedMenuController setMenuItems:@[selectParagraph, boldItem, italicItem, underlineItem]];
 }
 
 - (void)selectParagraph:(id)sender {
 	NSRange range = [self.attributedText firstParagraphRangeFromTextRange:self.selectedRange];
 	[self setSelectedRange:range];
     
-	[[UIMenuController sharedMenuController] setTargetRect:[self frameOfTextAtRange:self.selectedRange] inView:self];
-	[[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+	[UIMenuController.sharedMenuController setTargetRect:[self frameOfTextAtRange:self.selectedRange] inView:self];
+	[UIMenuController.sharedMenuController setMenuVisible:YES animated:YES];
 }
 
 #pragma mark - Public Methods -
@@ -461,7 +455,7 @@
 
 // To fix the toolbar issues, may just want to set self.typingAttributesInProgress to YES instead
 - (void)richTextEditorToolbarDidSelectBold {
-	UIFont *font = [[self typingAttributes] objectForKey:NSFontAttributeName];
+	UIFont *font = [self.typingAttributes objectForKey:NSFontAttributeName];
 	[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeBold];
 	[self applyFontAttributesToSelectedRangeWithBoldTrait:[NSNumber numberWithBool:![font isBold]] italicTrait:nil fontName:nil fontSize:nil];
 	[self sendDelegateTypingAttrsUpdate];
@@ -469,7 +463,7 @@
 }
 
 - (void)richTextEditorToolbarDidSelectItalic {
-	UIFont *font = [[self typingAttributes] objectForKey:NSFontAttributeName];
+	UIFont *font = [self.typingAttributes objectForKey:NSFontAttributeName];
 	[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeItalic];
 	[self applyFontAttributesToSelectedRangeWithBoldTrait:nil italicTrait:[NSNumber numberWithBool:![font isItalic]] fontName:nil fontSize:nil];
 	[self sendDelegateTypingAttrsUpdate];
@@ -477,7 +471,7 @@
 }
 
 - (void)richTextEditorToolbarDidSelectUnderline {
-	NSDictionary *dictionary = [self typingAttributes];
+	NSDictionary *dictionary = self.typingAttributes;
 	NSNumber *existingUnderlineStyle = [dictionary objectForKey:NSUnderlineStyleAttributeName];
 	if (!existingUnderlineStyle || existingUnderlineStyle.intValue == NSUnderlineStyleNone) {
 		existingUnderlineStyle = [NSNumber numberWithInteger:NSUnderlineStyleSingle];
@@ -548,7 +542,7 @@
 
 - (void)richTextEditorToolbarDidSelectStrikeThrough {
 	[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeStrikethrough];
-    NSDictionary *dictionary = [self typingAttributes];
+    NSDictionary *dictionary = self.typingAttributes;
 	NSNumber *existingUnderlineStyle = [dictionary objectForKey:NSStrikethroughStyleAttributeName];
 	if (!existingUnderlineStyle || existingUnderlineStyle.intValue == NSUnderlineStyleNone) {
 		existingUnderlineStyle = [NSNumber numberWithInteger:NSUnderlineStyleSingle];
@@ -590,8 +584,9 @@
                 shouldUseUndoManager = NO;
             }
         }
-        if (shouldUseUndoManager && [[self undoManager] canRedo])
+        if (shouldUseUndoManager && [[self undoManager] canRedo]) {
             [self.undoManager redo];
+        }
     }
     @catch (NSException *e) {
         NSLog(@"[RTE] Couldn't perform redo: %@", [e description]);
@@ -632,12 +627,12 @@
 	}];
     
     // Following 2 lines allow the user to insta-type after indenting in a bulleted list
-    NSRange range = NSMakeRange(self.selectedRange.location+self.selectedRange.length, 0);
+    NSRange range = NSMakeRange(self.selectedRange.location + self.selectedRange.length, 0);
     [self setSelectedRange:range];
     
     // Check to see if the current paragraph is blank. If it is, manually get the cursor to move with a weird hack.
     NSRange rangeOfCurrentParagraph = [self.attributedText firstParagraphRangeFromTextRange:self.selectedRange];
-	BOOL currParagraphIsBlank = [[self.attributedText.string substringWithRange:rangeOfCurrentParagraph] isEqualToString:@""] ? YES: NO;
+	BOOL currParagraphIsBlank = [[self.attributedText.string substringWithRange:rangeOfCurrentParagraph] isEqualToString:@""];
     if (currParagraphIsBlank) {
         [self setIndentationWithAttributes:dictionary paragraphStyle:paragraphStyle atRange:rangeOfCurrentParagraph];
     }
@@ -648,11 +643,12 @@
 // and applying that attribute to the current typing attributes it moves the cursor to the right place.
 -(void)setIndentationWithAttributes:(NSDictionary*)attributes paragraphStyle:(NSMutableParagraphStyle*)paragraphStyle atRange:(NSRange)range {
     NSMutableAttributedString *space = [[NSMutableAttributedString alloc] initWithString:@" " attributes:attributes];
-    [space addAttributes:[NSDictionary dictionaryWithObject:paragraphStyle forKey:NSParagraphStyleAttributeName] range:NSMakeRange(0, 1)];
+    [space addAttributes:@{NSParagraphStyleAttributeName : paragraphStyle}
+                   range:NSMakeRange(0, 1)];
 	[self.textStorage insertAttributedString:space atIndex:range.location];
-    [self setSelectedRange:NSMakeRange(range.location, 1)];
+    self.selectedRange = NSMakeRange(range.location, 1);
     [self applyAttributes:paragraphStyle forKey:NSParagraphStyleAttributeName atRange:NSMakeRange(self.selectedRange.location+self.selectedRange.length-1, 1)];
-    [self setSelectedRange:NSMakeRange(range.location, 0)];
+    self.selectedRange = NSMakeRange(range.location, 0);
 	[self.textStorage deleteCharactersInRange:NSMakeRange(range.location, 1)];
     [self applyAttributeToTypingAttribute:paragraphStyle forKey:NSParagraphStyleAttributeName];
 }
@@ -793,11 +789,11 @@
 	}
 	else {
 		if (initialSelectedRange.length == 0) {
-            rangeForSelection = NSMakeRange(initialSelectedRange.location+rangeOffset, 0);
+            rangeForSelection = NSMakeRange(initialSelectedRange.location + rangeOffset, 0);
 		}
 		else {
 			NSRange fullRange = [self fullRangeFromArrayOfParagraphRanges:rangeOfParagraphsInSelectedText];
-            rangeForSelection = NSMakeRange(fullRange.location, fullRange.length+rangeOffset);
+            rangeForSelection = NSMakeRange(fullRange.location, fullRange.length +rangeOffset);
 		}
 	}
 	if (mustDecreaseIndentAfterRemovingBullet) { // remove the extra indentation added by the bullet
@@ -813,7 +809,7 @@
 - (void)richTextEditorToolbarDidSelectTextAttachment:(UIImage *)textAttachment {
 	[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeTextAttachment];
 	RichTextImageAttachment *attachment = [[RichTextImageAttachment alloc] init];
-	[attachment setImage:textAttachment];
+    attachment.image = textAttachment;
 	NSAttributedString *attributedStringAttachment = [NSAttributedString attributedStringWithAttachment:attachment];
 	NSDictionary *previousAttributes = [self dictionaryAtIndex:self.selectedRange.location];
 	[self.textStorage insertAttributedString:attributedStringAttachment atIndex:self.selectedRange.location];
@@ -972,8 +968,9 @@
 																			   fontSize:fontSize
 																		 fromDictionary:dictionary];
 											  
-											  if (newFont)
+                                              if (newFont) {
 												  [self.textStorage addAttributes:[NSDictionary dictionaryWithObject:newFont forKey:NSFontAttributeName] range:range];
+                                              }
 										  }];
 		[self.textStorage endEditing];
 		self.selectedRange = range;
@@ -1079,9 +1076,9 @@
 - (UIFont *)fontwithBoldTrait:(NSNumber *)isBold italicTrait:(NSNumber *)isItalic fontName:(NSString *)fontName fontSize:(NSNumber *)fontSize fromDictionary:(NSDictionary *)dictionary {
 	UIFont *newFont = nil;
 	UIFont *font = [dictionary objectForKey:NSFontAttributeName];
-	BOOL newBold = (isBold) ? isBold.intValue : [font isBold];
-	BOOL newItalic = (isItalic) ? isItalic.intValue : [font isItalic];
-	CGFloat newFontSize = (fontSize) ? fontSize.floatValue : font.pointSize;
+	BOOL newBold = isBold ? isBold.intValue : [font isBold];
+	BOOL newItalic = isItalic ? isItalic.intValue : [font isItalic];
+	CGFloat newFontSize = fontSize ? fontSize.floatValue : font.pointSize;
 	if (fontName) {
 		newFont = [UIFont fontWithName:fontName size:newFontSize boldTrait:newBold italicTrait:newItalic];
 	}
@@ -1161,21 +1158,21 @@
 	NSRange range = self.selectedRange;
 	if (range.location > 0) {
         NSString *checkString = self.BULLET_STRING;
-		if ([checkString length] > 1) { // chop off last letter and use that
-            checkString = [checkString substringToIndex:[checkString length]-1];
+		if (checkString.length > 1) { // chop off last letter and use that
+            checkString = [checkString substringToIndex:checkString.length - 1];
 		}
         //else return;
         NSUInteger checkStringLength = [checkString length];
         if (![self.attributedText.string isEqualToString:self.BULLET_STRING]) {
             if (((int)(range.location - checkStringLength) >= 0 &&
-                 [[self.attributedText.string substringFromIndex:range.location-checkStringLength] hasPrefix:checkString])) {
-                NSLog(@"[RTE] Getting rid of a bullet due to backspace while in empty bullet paragraph.");
+                 [[self.attributedText.string substringFromIndex:range.location - checkStringLength] hasPrefix:checkString])) {
+                //NSLog(@"[RTE] Getting rid of a bullet due to backspace while in empty bullet paragraph.");
 				// Get rid of bullet string
 				[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeBullet];
 				//NSLog(@"[RTE] Getting rid of a bullet due to backspace while in empty bullet paragraph.");
 				// Get rid of bullet string
-				[self.textStorage deleteCharactersInRange:NSMakeRange(range.location-checkStringLength, checkStringLength)];
-				NSRange newRange = NSMakeRange(range.location-checkStringLength, 0);
+				[self.textStorage deleteCharactersInRange:NSMakeRange(range.location - checkStringLength, checkStringLength)];
+				NSRange newRange = NSMakeRange(range.location - checkStringLength, 0);
 				self.selectedRange = newRange;
 				
 				// Get rid of bullet indentation
@@ -1184,7 +1181,7 @@
             else {
                 // User may be needing to get out of a bulleted list due to hitting enter (return)
                 NSRange rangeOfCurrentParagraph = [self.attributedText firstParagraphRangeFromTextRange:self.selectedRange];
-                NSInteger prevParaLocation = rangeOfCurrentParagraph.location-1;
+                NSInteger prevParaLocation = rangeOfCurrentParagraph.location - 1;
 				if (prevParaLocation >= 0) {
 					NSRange rangeOfPreviousParagraph = [self.attributedText firstParagraphRangeFromTextRange:NSMakeRange(rangeOfCurrentParagraph.location - 1, 0)];
 					// If the following if statement is true, the user hit enter on a blank bullet list
@@ -1193,7 +1190,7 @@
 					if ([[self.attributedText.string substringWithRange:rangeOfPreviousParagraph] hasSuffix:self.BULLET_STRING]) {
 						[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeBullet];
 						//NSLog(@"[RTE] Getting rid of bullets due to user hitting enter.");
-						NSRange rangeToDelete = NSMakeRange(rangeOfPreviousParagraph.location, rangeOfPreviousParagraph.length+rangeOfCurrentParagraph.length + 1);
+						NSRange rangeToDelete = NSMakeRange(rangeOfPreviousParagraph.location, rangeOfPreviousParagraph.length + rangeOfCurrentParagraph.length + 1);
 						[self.textStorage deleteCharactersInRange:rangeToDelete];
 						NSRange newRange = NSMakeRange(rangeOfPreviousParagraph.location, 0);
 						self.selectedRange = newRange;
@@ -1229,9 +1226,7 @@
 		if (!isUsingiPad && style == RichTextEditorToolbarPresentationStylePopover) {
 			return RichTextEditorToolbarPresentationStyleModal;
 		}
-		else {
-			return style;
-		}
+        return style;
 	}
 	return isUsingiPad ? RichTextEditorToolbarPresentationStylePopover : RichTextEditorToolbarPresentationStyleModal;
 }

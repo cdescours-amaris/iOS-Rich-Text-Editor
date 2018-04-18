@@ -9,13 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @protocol RichTextEditorFontSizePickerViewControllerDelegate <NSObject>
+
 - (void)richTextEditorFontSizePickerViewControllerDidSelectFontSize:(NSNumber *)fontSize;
 - (void)richTextEditorFontSizePickerViewControllerDidSelectClose;
+
 @end
 
 @protocol RichTextEditorFontSizePickerViewControllerDataSource <NSObject>
+
 - (BOOL)richTextEditorFontSizePickerViewControllerShouldDisplayToolbar;
 - (NSArray *)richTextEditorFontSizePickerViewControllerCustomFontSizesForSelection;
+
 @end
 
 @protocol RichTextEditorFontSizePicker <NSObject>

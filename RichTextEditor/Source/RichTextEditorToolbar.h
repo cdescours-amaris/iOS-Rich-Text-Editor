@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, ParagraphIndentation) {
 };
 
 @protocol RichTextEditorToolbarDelegate <UIScrollViewDelegate>
+
 - (void)richTextEditorToolbarDidDismissViewController;
 - (void)richTextEditorToolbarDidSelectBold;
 - (void)richTextEditorToolbarDidSelectItalic;
@@ -56,9 +57,11 @@ typedef NS_ENUM(NSUInteger, ParagraphIndentation) {
 - (void)richTextEditorToolbarDidSelectUndo;
 - (void)richTextEditorToolbarDidSelectRedo;
 - (void)richTextEditorToolbarDidSelectDismissKeyboard;
+
 @end
 
 @protocol RichTextEditorToolbarDataSource <NSObject>
+
 - (NSArray *)fontSizeSelectionForRichTextEditorToolbar;
 - (NSArray *)fontFamilySelectionForRichTextEditorToolbar;
 - (RichTextEditorToolbarPresentationStyle)presentationStyleForRichTextEditorToolbar;
@@ -72,6 +75,7 @@ typedef NS_ENUM(NSUInteger, ParagraphIndentation) {
 
 @optional
 - (UIImage *)imageForRichTextEditorToolbarFeature:(RichTextEditorFeature)feature;
+
 @end
 
 @interface RichTextEditorToolbar : UIScrollView

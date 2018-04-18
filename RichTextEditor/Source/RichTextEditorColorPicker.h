@@ -14,12 +14,16 @@ typedef NS_ENUM(NSUInteger, RichTextEditorColorPickerAction) {
 };
 
 @protocol RichTextEditorColorPickerViewControllerDelegate <NSObject>
+
 - (void)richTextEditorColorPickerViewControllerDidSelectColor:(UIColor *)color withAction:(RichTextEditorColorPickerAction)action;
 - (void)richTextEditorColorPickerViewControllerDidSelectClose;
+
 @end
 
 @protocol RichTextEditorColorPickerViewControllerDataSource <NSObject>
+
 - (BOOL)richTextEditorColorPickerViewControllerShouldDisplayToolbar;
+
 @end
 
 @protocol RichTextEditorColorPicker <NSObject>
