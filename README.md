@@ -128,6 +128,17 @@ On default the UIMenuController options (bold, italic, underline, strikeThrough)
 } 
 ```
 
+### Custom Toolbar Images
+
+To use custom toolbar images, set the rich text editor's data source, and implement the following method:
+```
+- (UIImage *)imageForToolbarInRichTextEditor:(RichTextEditor *)richTextEditor forFeature:(RichTextEditorFeature)feature {
+    if (feature == RichTextEditorFeatureBulletList)
+        return [UIImage imageNamed:@"custom-bullet-list-image"];
+    return nil; // return nil if you don't want to set a custom image
+}
+```
+
 ### Credits
 
 Original Rich Text Editor code by aryaxt at [iOS Rich Text Editor](https://github.com/aryaxt/iOS-Rich-Text-Editor).
