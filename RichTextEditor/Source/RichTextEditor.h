@@ -51,13 +51,15 @@ typedef NS_OPTIONS(NSUInteger, RichTextEditorFeature) {
 	RichTextEditorFeatureTextAlignmentJustified			= 1 << 10,
 	RichTextEditorFeatureTextBackgroundColor			= 1 << 11,
 	RichTextEditorFeatureTextForegroundColor			= 1 << 12,
-	RichTextEditorFeatureParagraphIndentation			= 1 << 13,
-	RichTextEditorFeatureParagraphFirstLineIndentation	= 1 << 14,
+	RichTextEditorFeatureParagraphIndentation			= 1 << 13, // RichTextEditorFeatureParagraphIndentation includes increase and decrease
+	RichTextEditorFeatureParagraphFirstLineIndentation	= 1 << 14, // also included in RichTextEditorFeatureParagraphIndentation
 	RichTextEditorFeatureBulletList						= 1 << 15,
 	RichTextEditorTextAttachment						= 1 << 16,
 	RichTextEditorFeatureUndoRedo						= 1 << 17,
 	RichTextEditorFeatureDismissKeyboard				= 1 << 18,
 	RichTextEditorFeatureAll							= 1 << 19,
+    RichTextEditorFeatureParagraphIndentationDecrease   = 1 << 20, // RichTextEditorFeatureParagraphIndentation includes increase and decrease
+    RichTextEditorFeatureParagraphIndentationIncrease   = 1 << 21, // RichTextEditorFeatureParagraphIndentation includes increase and decrease
 };
 
 @class RichTextEditor;
@@ -77,6 +79,14 @@ typedef NS_OPTIONS(NSUInteger, RichTextEditorFeature) {
 - (UIViewController <RichTextEditorColorPicker> *)colorPickerForRichTextEditor:(RichTextEditor *)richTextEditor withAction:(RichTextEditorColorPickerAction)action;
 - (UIViewController <RichTextEditorFontPicker> *)fontPickerForRichTextEditor:(RichTextEditor *)richTextEditor;
 - (UIViewController <RichTextEditorFontSizePicker> *)fontSizePickerForRichTextEditor:(RichTextEditor *)richTextEditor;
+
+// images should be 24x24 for @1x, 48x48 for @2x, and 72x72 for @3x
+- (BOOL)hasCustomImageForRichTextEditor:(RichTextEditor *)richTextEditor forFeature:(RichTextEditorFeature)feature;
+// return nil in imageForToolbarInRichTextEditor:forFeature: if you do not have a custom image for that feature.
+// note that RichTextEditorFeatureParagraphIndentation is not used here: it uses the more specific RichTextEditorFeature
+// items of RichTextEditorFeatureParagraphFirstLineIndentation, RichTextEditorFeatureParagraphIndentationDecrease,
+// and RichTextEditorFeatureParagraphIndentationIncrease.
+- (UIImage *)imageForToolbarInRichTextEditor:(RichTextEditor *)richTextEditor forFeature:(RichTextEditorFeature)feature;
 
 @end
 

@@ -3,6 +3,7 @@
 ### 0.9 TODO
 - [x] Drop WEPopover dependency and use native popovers on iPhone (see [here](https://rbnsn.me/ios-8-popover-presentations) and [here](https://richardallen.me/2014/11/28/popovers.html)). -- Dropped dependency but decided not to use popovers on iPhone per [interface guidelines](https://developer.apple.com/ios/human-interface-guidelines/ui-views/popovers/). 
 - [x] Change style to have starting brackets on the same line as if statements & function calls (etc.)
+- [ ] Update code style to use `.` notation rather than `[]` notation
 - [ ] Bug fixing/checking
 - [ ] Fix NSUndoManager undo/redo when using bulleted lists
 - [x] Make the toolbar more pretty

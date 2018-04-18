@@ -359,18 +359,21 @@
 	}
 	
 	// Paragraph indentation
-	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureAll) {
+	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureParagraphIndentationIncrease ||
+        features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnParagraphOutdent afterView:lastAddedView  withSpacing:YES];
 		lastAddedView = [self addView:self.btnParagraphIndent afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Paragraph first line indentation
-	if (features & RichTextEditorFeatureParagraphFirstLineIndentation || features & RichTextEditorFeatureAll) {
+	if (features & RichTextEditorFeatureParagraphFirstLineIndentation || features & RichTextEditorFeatureParagraphIndentationDecrease ||
+        features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnParagraphFirstLineHeadIndent afterView:lastAddedView withSpacing:YES];
 	}
 	
 	// Separator view after Indentation
-	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureParagraphFirstLineIndentation || features & RichTextEditorFeatureAll) {
+	if (features & RichTextEditorFeatureParagraphIndentation || features & RichTextEditorFeatureParagraphFirstLineIndentation ||
+        features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
 	}
 	
@@ -428,52 +431,61 @@
 	self.btnFontSize.imageView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
 	self.btnFontSize.titleLabel.font = [self.btnFont.titleLabel.font fontWithSize:16];
 	
-	self.btnBold = [self buttonWithImageNamed:@"format-bold"
-								  andSelector:@selector(boldSelected:)];
+	self.btnBold = [self buttonWithDefaultImageNamed:@"format-bold"
+                                         andSelector:@selector(boldSelected:)
+                                          forFeature:RichTextEditorFeatureBold];
 	
+	self.btnItalic = [self buttonWithDefaultImageNamed:@"format-italic"
+                                           andSelector:@selector(italicSelected:)
+                                            forFeature:RichTextEditorFeatureItalic];
 	
-	self.btnItalic = [self buttonWithImageNamed:@"format-italic"
-									andSelector:@selector(italicSelected:)];
+	self.btnUnderline = [self buttonWithDefaultImageNamed:@"format-underlined"
+                                              andSelector:@selector(underLineSelected:)
+                                               forFeature:RichTextEditorFeatureUnderline];
 	
+	self.btnStrikeThrough = [self buttonWithDefaultImageNamed:@"format-strikethrough"
+                                                  andSelector:@selector(strikeThroughSelected:)
+                                                   forFeature:RichTextEditorFeatureStrikeThrough];
 	
-	self.btnUnderline = [self buttonWithImageNamed:@"format-underlined"
-									   andSelector:@selector(underLineSelected:)];
+	self.btnTextAlignmentLeft = [self buttonWithDefaultImageNamed:@"format-align-left"
+                                                      andSelector:@selector(textAlignmentSelected:)
+                                                       forFeature:RichTextEditorFeatureTextAlignmentLeft];
 	
-	self.btnStrikeThrough = [self buttonWithImageNamed:@"format-strikethrough"
-										   andSelector:@selector(strikeThroughSelected:)];
+	self.btnTextAlignmentCenter = [self buttonWithDefaultImageNamed:@"format-align-center"
+                                                        andSelector:@selector(textAlignmentSelected:)
+                                                         forFeature:RichTextEditorFeatureTextAlignmentCenter];
 	
+	self.btnTextAlignmentRight = [self buttonWithDefaultImageNamed:@"format-align-right"
+                                                       andSelector:@selector(textAlignmentSelected:)
+                                                        forFeature:RichTextEditorFeatureTextAlignmentRight];
 	
-	self.btnTextAlignmentLeft = [self buttonWithImageNamed:@"format-align-left"
-											   andSelector:@selector(textAlignmentSelected:)];
+	self.btnTextAlignmentJustified = [self buttonWithDefaultImageNamed:@"format-align-justify"
+                                                           andSelector:@selector(textAlignmentSelected:)
+                                                            forFeature:RichTextEditorFeatureTextAlignmentJustified];
 	
+	self.btnForegroundColor = [self buttonWithDefaultImageNamed:@"format-color"
+                                                    andSelector:@selector(textForegroundColorSelected:)
+                                                     forFeature:RichTextEditorFeatureTextForegroundColor];
 	
-	self.btnTextAlignmentCenter = [self buttonWithImageNamed:@"format-align-center"
-												 andSelector:@selector(textAlignmentSelected:)];
+	self.btnBackgroundColor = [self buttonWithDefaultImageNamed:@"format-color-fill"
+                                                    andSelector:@selector(textBackgroundColorSelected:)
+                                                     forFeature:RichTextEditorFeatureTextBackgroundColor];
 	
+	self.btnBulletList = [self buttonWithDefaultImageNamed:@"format-list-bulleted"
+                                               andSelector:@selector(bulletListSelected:)
+                                                forFeature:RichTextEditorFeatureBulletList];
 	
-	self.btnTextAlignmentRight = [self buttonWithImageNamed:@"format-align-right"
-												andSelector:@selector(textAlignmentSelected:)];
+	self.btnParagraphIndent = [self buttonWithDefaultImageNamed:@"indent-increase"
+                                                    andSelector:@selector(paragraphIndentSelected:)
+                                                     forFeature:RichTextEditorFeatureParagraphIndentationIncrease];
 	
-	self.btnTextAlignmentJustified = [self buttonWithImageNamed:@"format-align-justify"
-													andSelector:@selector(textAlignmentSelected:)];
+	self.btnParagraphOutdent = [self buttonWithDefaultImageNamed:@"indent-decrease"
+                                                     andSelector:@selector(paragraphOutdentSelected:)
+                                                      forFeature:RichTextEditorFeatureParagraphIndentationDecrease];
 	
-	self.btnForegroundColor = [self buttonWithImageNamed:@"format-color"
-											 andSelector:@selector(textForegroundColorSelected:)];
-	
-	self.btnBackgroundColor = [self buttonWithImageNamed:@"format-color-fill"
-											 andSelector:@selector(textBackgroundColorSelected:)];
-	
-	self.btnBulletList = [self buttonWithImageNamed:@"format-list-bulleted"
-										 andSelector:@selector(bulletListSelected:)];
-	
-	self.btnParagraphIndent = [self buttonWithImageNamed:@"indent-increase"
-											 andSelector:@selector(paragraphIndentSelected:)];
-	
-	self.btnParagraphOutdent = [self buttonWithImageNamed:@"indent-decrease"
-											  andSelector:@selector(paragraphOutdentSelected:)];
-	
-	self.btnParagraphFirstLineHeadIndent = [self buttonWithImageNamed:@"format-first-line-indent"
-														  andSelector:@selector(paragraphHeadIndentOutdentSelected:)];
+	self.btnParagraphFirstLineHeadIndent = [self buttonWithDefaultImageNamed:@"format-first-line-indent"
+                                                                 andSelector:@selector(paragraphHeadIndentOutdentSelected:)
+                                                                  forFeature:RichTextEditorFeatureParagraphFirstLineIndentation];
 	
 	self.btnTextAttachment = [self buttonWithImageNamed:@"insert-photo"
                                             andSelector:@selector(textAttachmentSelected:)];
@@ -497,13 +509,18 @@
 	}
 }
 
+- (RichTextEditorToggleButton *)createToolbarButtonWithWidth:(NSInteger)width andSelector:(SEL)selector {
+    RichTextEditorToggleButton *button = [[RichTextEditorToggleButton alloc] init];
+    [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
+    [button setFrame:CGRectMake(0, 0, width, 0)];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:10]];
+    [button.titleLabel setTextColor:[UIColor blackColor]];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    return button;
+}
+
 - (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)imageName width:(NSInteger)width andSelector:(SEL)selector {
-	RichTextEditorToggleButton *button = [[RichTextEditorToggleButton alloc] init];
-	[button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
-	[button setFrame:CGRectMake(0, 0, width, 0)];
-	[button.titleLabel setFont:[UIFont boldSystemFontOfSize:10]];
-	[button.titleLabel setTextColor:[UIColor blackColor]];
-	[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    RichTextEditorToggleButton *button = [self createToolbarButtonWithWidth:width andSelector:selector];
 	
 	NSBundle *frameWorkBundle = [NSBundle bundleForClass:[self class]];
 	UIImage *image = [UIImage imageNamed:imageName inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
@@ -512,8 +529,36 @@
 	return button;
 }
 
-- (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)image andSelector:(SEL)selector {
-	return [self buttonWithImageNamed:image width:ITEM_WIDTH andSelector:selector];
+- (RichTextEditorToggleButton *)buttonWithImageNamed:(NSString *)imageName andSelector:(SEL)selector {
+	return [self buttonWithImageNamed:imageName width:ITEM_WIDTH andSelector:selector];
+}
+
+- (RichTextEditorToggleButton *)buttonWithDefaultImage:(UIImage *)image width:(NSInteger)width andSelector:(SEL)selector forFeature:(RichTextEditorFeature)feature {
+    RichTextEditorToggleButton *button = [self createToolbarButtonWithWidth:width andSelector:selector];
+    if ([self.dataSource respondsToSelector:@selector(imageForRichTextEditorToolbarFeature:)]) {
+        UIImage *customImage = [self.dataSource imageForRichTextEditorToolbarFeature:feature];
+        if (customImage) {
+            [button setImage:customImage forState:UIControlStateNormal];
+        }
+        else {
+            [button setImage:image forState:UIControlStateNormal];
+        }
+    }
+    else {
+        [button setImage:image forState:UIControlStateNormal];
+    }
+    
+    return button;
+}
+
+- (RichTextEditorToggleButton *)buttonWithDefaultImage:(UIImage *)image andSelector:(SEL)selector forFeature:(RichTextEditorFeature)feature {
+    return [self buttonWithDefaultImage:image width:ITEM_WIDTH andSelector:selector forFeature:feature];
+}
+
+- (RichTextEditorToggleButton *)buttonWithDefaultImageNamed:(NSString *)imageName andSelector:(SEL)selector forFeature:(RichTextEditorFeature)feature {
+    NSBundle *frameWorkBundle = [NSBundle bundleForClass:[self class]];
+    UIImage *image = [UIImage imageNamed:imageName inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+    return [self buttonWithDefaultImage:image width:ITEM_WIDTH andSelector:selector forFeature:feature];
 }
 
 - (UIView *)separatorView {

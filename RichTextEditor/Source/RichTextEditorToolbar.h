@@ -69,6 +69,10 @@ typedef NS_ENUM(NSUInteger, ParagraphIndentation) {
 - (UIViewController <RichTextEditorColorPicker> *)colorPickerForRichTextEditorToolbarWithAction:(RichTextEditorColorPickerAction)action;
 - (UIViewController <RichTextEditorFontPicker> *)fontPickerForRichTextEditorToolbar;
 - (UIViewController <RichTextEditorFontSizePicker> *)fontSizePickerForRichTextEditorToolbar;
+
+@optional
+- (BOOL)hasCustomImageForRichTextEditorToolbarFeature:(RichTextEditorFeature)feature;
+- (UIImage *)imageForRichTextEditorToolbarFeature:(RichTextEditorFeature)feature;
 @end
 
 @interface RichTextEditorToolbar : UIScrollView

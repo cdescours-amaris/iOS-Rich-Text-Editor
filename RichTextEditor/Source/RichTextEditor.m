@@ -834,6 +834,20 @@
 	return nil;
 }
 
+- (BOOL)hasCustomImageForRichTextEditorToolbarFeature:(RichTextEditorFeature)feature {
+    if ([self.dataSource respondsToSelector:@selector(hasCustomImageForRichTextEditor:forFeature:)]) {
+        return [self.dataSource hasCustomImageForRichTextEditor:self forFeature:feature];
+    }
+    return NO;
+}
+
+- (UIImage *)imageForRichTextEditorToolbarFeature:(RichTextEditorFeature)feature {
+    if ([self.dataSource respondsToSelector:@selector(imageForToolbarInRichTextEditor:forFeature:)]) {
+        return [self.dataSource imageForToolbarInRichTextEditor:self forFeature:feature];
+    }
+    return nil;
+}
+
 #pragma mark - Private Methods -
 
 - (CGRect)frameOfTextAtRange:(NSRange)range {
