@@ -55,11 +55,13 @@ typedef NS_OPTIONS(NSUInteger, RichTextEditorFeature) {
 	RichTextEditorFeatureParagraphFirstLineIndentation	= 1 << 14, // also included in RichTextEditorFeatureParagraphIndentation
 	RichTextEditorFeatureBulletList						= 1 << 15,
 	RichTextEditorTextAttachment						= 1 << 16,
-	RichTextEditorFeatureUndoRedo						= 1 << 17,
+	RichTextEditorFeatureUndoRedo						= 1 << 17, // RichTextEditorFeatureUndoRedo includes undo and redo
 	RichTextEditorFeatureDismissKeyboard				= 1 << 18,
 	RichTextEditorFeatureAll							= 1 << 19,
-    RichTextEditorFeatureParagraphIndentationDecrease   = 1 << 20, // RichTextEditorFeatureParagraphIndentation includes increase and decrease
-    RichTextEditorFeatureParagraphIndentationIncrease   = 1 << 21, // RichTextEditorFeatureParagraphIndentation includes increase and decrease
+    RichTextEditorFeatureParagraphIndentationDecrease   = 1 << 20,
+    RichTextEditorFeatureParagraphIndentationIncrease   = 1 << 21,
+    RichTextEditorFeatureUndo                           = 1 << 22, // also included in RichTextEditorFeatureUndoRedo
+    RichTextEditorFeatureRedo                           = 1 << 23, // also included in RichTextEditorFeatureUndoRedo
 };
 
 @class RichTextEditor;

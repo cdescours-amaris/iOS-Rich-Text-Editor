@@ -488,13 +488,21 @@
                                                                  andSelector:@selector(paragraphHeadIndentOutdentSelected:)
                                                                   forFeature:RichTextEditorFeatureParagraphFirstLineIndentation];
 	
-	self.btnTextAttachment = [self buttonWithImageNamed:@"insert-photo"
-                                            andSelector:@selector(textAttachmentSelected:)];
-	self.btnTextUndo = [self buttonWithImageNamed:@"undo"
-                                      andSelector:@selector(undoSelected:)];
-	self.btnTextRedo = [self buttonWithImageNamed:@"redo"
-                                      andSelector:@selector(redoSelected:)];
-    self.btnDismissKeyboard = [self buttonWithImageNamed:@"keyboard-hide" andSelector:@selector(dismissKeyboard:)];
+	self.btnTextAttachment = [self buttonWithDefaultImageNamed:@"insert-photo"
+                                                   andSelector:@selector(textAttachmentSelected:)
+                                                    forFeature:RichTextEditorTextAttachment];
+    
+	self.btnTextUndo = [self buttonWithDefaultImageNamed:@"undo"
+                                             andSelector:@selector(undoSelected:)
+                                              forFeature:RichTextEditorFeatureUndo];
+    
+	self.btnTextRedo = [self buttonWithDefaultImageNamed:@"redo"
+                                             andSelector:@selector(redoSelected:)
+                                              forFeature:RichTextEditorFeatureRedo];
+    
+    self.btnDismissKeyboard = [self buttonWithDefaultImageNamed:@"keyboard-hide"
+                                                    andSelector:@selector(dismissKeyboard:)
+                                                     forFeature:RichTextEditorFeatureDismissKeyboard];
 }
 
 
