@@ -107,7 +107,6 @@ typedef NS_ENUM(NSInteger, RichTextEditorPreviewChange) {
 	RichTextEditorPreviewChangeCut,
 	RichTextEditorPreviewChangePaste,
 	RichTextEditorPreviewChangeTextAttachment,
-	RichTextEditorPreviewChangePageBreak,
 	RichTextEditorPreviewChangeSpace,
 	RichTextEditorPreviewChangeEnter,
 	RichTextEditorPreviewChangeBullet,

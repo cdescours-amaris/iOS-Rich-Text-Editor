@@ -1281,8 +1281,6 @@
 			return NSLocalizedString(@"Font Color", @"");
 		case RichTextEditorPreviewChangeHighlight:
 			return NSLocalizedString(@"Text Highlight", @"");
-		case RichTextEditorPreviewChangePageBreak:
-			return NSLocalizedString(@"Insert Page Break", @"");
 		case RichTextEditorPreviewChangeUnderline:
 			return NSLocalizedString(@"Underline", @"");
 		case RichTextEditorPreviewChangeStrikethrough:
