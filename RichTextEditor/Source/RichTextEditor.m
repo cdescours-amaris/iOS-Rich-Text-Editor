@@ -98,6 +98,15 @@
 	self.delegate_interceptor.receiver = newDelegate;
 }
 
+- (void)setDataSource:(id<RichTextEditorDataSource>)dataSource {
+    _dataSource = dataSource;
+    [self.toolBar redraw];
+}
+
+//- (id<RichTextEditorDataSource>)dataSource {
+//    return _dataSource;
+//}
+
 /*
  // TODO: Figure out if this can be overridden somehow without messing up the delegation system
 - (id)delegate {

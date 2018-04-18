@@ -135,8 +135,8 @@ typedef NS_ENUM(NSInteger, RichTextEditorPreviewChange) {
 
 @interface RichTextEditor : UITextView
 
-@property (assign) IBOutlet id <RichTextEditorDataSource> dataSource;
-@property (assign) IBOutlet id <RichTextEditorDelegate> rteDelegate;
+@property (nonatomic, assign) IBOutlet id <RichTextEditorDataSource> dataSource;
+@property (nonatomic, assign) IBOutlet id <RichTextEditorDelegate> rteDelegate;
 
 @property (nonatomic, assign) CGFloat defaultIndentationSize;
 @property BOOL inBulletedList;
