@@ -71,7 +71,6 @@ typedef NS_ENUM(NSUInteger, ParagraphIndentation) {
 - (UIViewController <RichTextEditorFontSizePicker> *)fontSizePickerForRichTextEditorToolbar;
 
 @optional
-- (BOOL)hasCustomImageForRichTextEditorToolbarFeature:(RichTextEditorFeature)feature;
 - (UIImage *)imageForRichTextEditorToolbarFeature:(RichTextEditorFeature)feature;
 @end
 

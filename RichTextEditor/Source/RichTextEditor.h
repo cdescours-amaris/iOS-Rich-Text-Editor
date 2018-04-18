@@ -81,7 +81,6 @@ typedef NS_OPTIONS(NSUInteger, RichTextEditorFeature) {
 - (UIViewController <RichTextEditorFontSizePicker> *)fontSizePickerForRichTextEditor:(RichTextEditor *)richTextEditor;
 
 // images should be 24x24 for @1x, 48x48 for @2x, and 72x72 for @3x
-- (BOOL)hasCustomImageForRichTextEditor:(RichTextEditor *)richTextEditor forFeature:(RichTextEditorFeature)feature;
 // return nil in imageForToolbarInRichTextEditor:forFeature: if you do not have a custom image for that feature.
 // note that RichTextEditorFeatureParagraphIndentation is not used here: it uses the more specific RichTextEditorFeature
 // items of RichTextEditorFeatureParagraphFirstLineIndentation, RichTextEditorFeatureParagraphIndentationDecrease,
