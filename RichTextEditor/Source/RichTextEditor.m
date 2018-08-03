@@ -1107,6 +1107,13 @@
     if (self.isInTextDidChange || self.justDeletedBackward) {
         return;
     }
+    NSRange rangeOfPreviousParagraph = [self.attributedText firstParagraphRangeFromTextRange:self.previousCursorPosition];
+    NSRange rangeOfCurrentParagraph = [self.attributedText firstParagraphRangeFromTextRange:currentRange];
+    BOOL previousParagraphHasBullet = [[self.attributedText.string substringFromIndex:rangeOfPreviousParagraph.location] hasPrefix:self.BULLET_STRING];
+    BOOL currentParagraphHasBullet = [[self.attributedText.string substringFromIndex:rangeOfCurrentParagraph.location] hasPrefix:self.BULLET_STRING];
+    if (current != previous && !currentParagraphHasBullet && previousParagraphHasBullet) {
+        return;
+    }
     
     // Bullet point from the same paragraph
     if (self.inBulletedList) {
