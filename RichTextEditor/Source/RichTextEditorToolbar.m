@@ -282,7 +282,7 @@
         lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
     }
 	
-	if ((features & RichTextEditorFeatureUndoRedo || features & RichTextEditorFeatureAll) && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+	if (features & RichTextEditorFeatureUndoRedo || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnTextUndo afterView:lastAddedView withSpacing:YES];
 		lastAddedView = [self addView:self.btnTextRedo afterView:lastAddedView withSpacing:YES];
 		lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
@@ -402,7 +402,7 @@
 	}
 	
 	// I think he wanted TextAttachment here, not BulletList
-	if ((features & RichTextEditorTextAttachment || features & RichTextEditorFeatureAll) && SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+	if (features & RichTextEditorTextAttachment || features & RichTextEditorFeatureAll) {
 		lastAddedView = [self addView:self.btnTextAttachment afterView:lastAddedView withSpacing:YES];
 	}
 	
@@ -611,15 +611,16 @@
 	if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal) {
 		viewController.modalPresentationStyle = [self.dataSource modalPresentationStyleForRichTextEditorToolbar];
 		viewController.modalTransitionStyle = [self.dataSource modalTransitionStyleForRichTextEditorToolbar];
-		[[self.dataSource firstAvailableViewControllerForRichTextEditorToolbar] presentViewController:viewController animated:YES completion:nil];
-		self.presentedViewController = viewController;
+        if (viewController.modalPresentationStyle == UIModalPresentationPopover) {
+            viewController.popoverPresentationController.sourceView = view;
+        }
 	}
 	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover) {
         viewController.modalPresentationStyle = UIModalPresentationPopover;
-        self.presentedViewController = viewController;
         viewController.popoverPresentationController.sourceView = view;
-        [[self.dataSource firstAvailableViewControllerForRichTextEditorToolbar] presentViewController:viewController animated:YES completion:nil];
 	}
+    [[self.dataSource firstAvailableViewControllerForRichTextEditorToolbar] presentViewController:viewController animated:YES completion:nil];
+    self.presentedViewController = viewController;
 }
 
 - (void)dismissViewController {
