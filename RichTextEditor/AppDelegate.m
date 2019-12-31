@@ -32,6 +32,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+     if (@available(iOS 13, *)) {
+         self.window.backgroundColor = UIColor.systemBackgroundColor;
+    } else {
+         self.window.backgroundColor = UIColor.whiteColor;
+    }
     return YES;
 }
 							

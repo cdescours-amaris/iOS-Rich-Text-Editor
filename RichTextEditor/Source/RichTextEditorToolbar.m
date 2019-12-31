@@ -27,7 +27,6 @@
 
 #import "RichTextEditorToolbar.h"
 #import <CoreText/CoreText.h>
-#import "RichTextEditorPopover.h"
 #import "RichTextEditorFontSizePickerViewController.h"
 #import "RichTextEditorFontPickerViewController.h"
 #import "RichTextEditorColorPickerViewController.h"
@@ -41,7 +40,6 @@
 @interface RichTextEditorToolbar() <RichTextEditorFontSizePickerViewControllerDelegate, RichTextEditorFontSizePickerViewControllerDataSource, RichTextEditorFontPickerViewControllerDelegate, RichTextEditorFontPickerViewControllerDataSource, RichTextEditorColorPickerViewControllerDataSource, RichTextEditorColorPickerViewControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak) UIViewController *presentedViewController; // e.g. for color picker
-@property (nonatomic, strong) id <RichTextEditorPopover> popover;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnDismissKeyboard;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnBold;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnItalic;
@@ -617,42 +615,21 @@
 		self.presentedViewController = viewController;
 	}
 	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover) {
-		id <RichTextEditorPopover> popover = [self popoverWithViewController:viewController];
-		[popover presentPopoverFromRect:view.frame inView:self permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+        viewController.modalPresentationStyle = UIModalPresentationPopover;
+        self.presentedViewController = viewController;
+        viewController.popoverPresentationController.sourceView = view;
+        [[self.dataSource firstAvailableViewControllerForRichTextEditorToolbar] presentViewController:viewController animated:YES completion:nil];
 	}
-}
-
-- (id <RichTextEditorPopover>)popoverWithViewController:(UIViewController *)viewController {
-	id <RichTextEditorPopover> popover;
-	
-	if (!popover) {
-		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-			popover = (id<RichTextEditorPopover>) [[UIPopoverController alloc] initWithContentViewController:viewController];
-		}
-		else {
-			popover = (id<RichTextEditorPopover>) [[UIPopoverController alloc] initWithContentViewController:viewController];
-		}
-	}
-	
-	[self.popover dismissPopoverAnimated:YES];
-	self.popover = popover;
-	
-	return popover;
 }
 
 - (void)dismissViewController {
-	if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStyleModal) {
-        if (self.presentedViewController) {
-			[self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-        }
-        else {
-			[[self.dataSource firstAvailableViewControllerForRichTextEditorToolbar] dismissViewControllerAnimated:YES completion:nil];
-        }
-		self.presentedViewController = nil; // it's already a weak pointer, but just for safety's sake...
-	}
-	else if ([self.dataSource presentationStyleForRichTextEditorToolbar] == RichTextEditorToolbarPresentationStylePopover) {
-		[self.popover dismissPopoverAnimated:YES];
-	}
+    if (self.presentedViewController) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [[self.dataSource firstAvailableViewControllerForRichTextEditorToolbar] dismissViewControllerAnimated:YES completion:nil];
+    }
+    self.presentedViewController = nil; // it's already a weak pointer, but just for safety's sake...
 	
 	[self.toolbarDelegate richTextEditorToolbarDidDismissViewController];
 }

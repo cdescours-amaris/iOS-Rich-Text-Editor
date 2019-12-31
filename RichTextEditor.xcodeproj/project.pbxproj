@@ -42,7 +42,6 @@
 		34BF6A561E5140D500A736BB /* RichTextEditorColorPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 153F957D179F9953005B2487 /* RichTextEditorColorPickerViewController.h */; };
 		34BF6A571E5140D500A736BB /* RichTextEditorFontPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 153F957F179F9953005B2487 /* RichTextEditorFontPickerViewController.h */; };
 		34BF6A581E5140D500A736BB /* RichTextEditorFontSizePickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 153F9581179F9953005B2487 /* RichTextEditorFontSizePickerViewController.h */; };
-		34BF6A591E5140D500A736BB /* RichTextEditorPopover.h in Headers */ = {isa = PBXBuildFile; fileRef = 153F9583179F9953005B2487 /* RichTextEditorPopover.h */; };
 		34BF6A5C1E5142C500A736BB /* button-center-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D2ECA7081A321FE900C57F03 /* button-center-selected.png */; };
 		34BF6A5E1E5142C500A736BB /* button-left-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D2ECA70A1A321FE900C57F03 /* button-left-selected.png */; };
 		34BF6A601E5142C500A736BB /* button-right-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = D2ECA70C1A321FE900C57F03 /* button-right-selected.png */; };
@@ -197,6 +196,7 @@
 		34BF6B7C1E52166800A736BB /* keyboard-arrow-up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34BF6B761E52166800A736BB /* keyboard-arrow-up@3x.png */; };
 		3F16CE501F4BF65F000A8F64 /* RichTextImageAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */; };
 		3F16CE511F4BF65F000A8F64 /* RichTextImageAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */; };
+		79957E0A23BBA2B1009E977C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79957E0923BBA2B1009E977C /* Default-568h@2x.png */; };
 		D28387081A7EE1340093AF3E /* OtherLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = D28387071A7EE1340093AF3E /* OtherLicenses.txt */; };
 /* End PBXBuildFile section */
 
@@ -246,7 +246,6 @@
 		153F9580179F9953005B2487 /* RichTextEditorFontPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichTextEditorFontPickerViewController.m; sourceTree = "<group>"; };
 		153F9581179F9953005B2487 /* RichTextEditorFontSizePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichTextEditorFontSizePickerViewController.h; sourceTree = "<group>"; };
 		153F9582179F9953005B2487 /* RichTextEditorFontSizePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichTextEditorFontSizePickerViewController.m; sourceTree = "<group>"; };
-		153F9583179F9953005B2487 /* RichTextEditorPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichTextEditorPopover.h; sourceTree = "<group>"; };
 		153F9584179F9953005B2487 /* RichTextEditorToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RichTextEditorToolbar.h; sourceTree = "<group>"; };
 		153F9585179F9953005B2487 /* RichTextEditorToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RichTextEditorToolbar.m; sourceTree = "<group>"; };
 		1583890E1735A5D7006DE713 /* RichTextEditorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RichTextEditorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -356,6 +355,7 @@
 		34BF6B761E52166800A736BB /* keyboard-arrow-up@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "keyboard-arrow-up@3x.png"; sourceTree = "<group>"; };
 		3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RichTextImageAttachment.h; sourceTree = "<group>"; };
 		3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RichTextImageAttachment.m; sourceTree = "<group>"; };
+		79957E0923BBA2B1009E977C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D28387071A7EE1340093AF3E /* OtherLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OtherLicenses.txt; sourceTree = "<group>"; };
 		D2ECA7081A321FE900C57F03 /* button-center-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-center-selected.png"; sourceTree = "<group>"; };
 		D2ECA70A1A321FE900C57F03 /* button-left-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-left-selected.png"; sourceTree = "<group>"; };
@@ -419,7 +419,6 @@
 				153F9580179F9953005B2487 /* RichTextEditorFontPickerViewController.m */,
 				153F9581179F9953005B2487 /* RichTextEditorFontSizePickerViewController.h */,
 				153F9582179F9953005B2487 /* RichTextEditorFontSizePickerViewController.m */,
-				153F9583179F9953005B2487 /* RichTextEditorPopover.h */,
 				3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */,
 				3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */,
 				D28387071A7EE1340093AF3E /* OtherLicenses.txt */,
@@ -523,6 +522,7 @@
 		158389031735A5D7006DE713 = {
 			isa = PBXGroup;
 			children = (
+				79957E0923BBA2B1009E977C /* Default-568h@2x.png */,
 				158389181735A5D7006DE713 /* RichTextEditor */,
 				1583893F1735A5D7006DE713 /* RichTextEditorTests */,
 				158389111735A5D7006DE713 /* Frameworks */,
@@ -651,7 +651,6 @@
 				34BF6A521E5140D500A736BB /* WZProtocolInterceptor.h in Headers */,
 				34BF6A541E5140D500A736BB /* RichTextEditorToolbar.h in Headers */,
 				34BF6A551E5140D500A736BB /* RichTextEditorToggleButton.h in Headers */,
-				34BF6A591E5140D500A736BB /* RichTextEditorPopover.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,6 +734,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 158389031735A5D7006DE713;
@@ -792,6 +792,7 @@
 				34BF6B311E52121500A736BB /* attach-file@3x.png in Resources */,
 				34BF6AEE1E520EFF00A736BB /* format-list-bulleted.png in Resources */,
 				34BF6AF01E520EFF00A736BB /* format-list-bulleted@2x.png in Resources */,
+				79957E0A23BBA2B1009E977C /* Default-568h@2x.png in Resources */,
 				34BF6AB81E520DA300A736BB /* indent-increase.png in Resources */,
 				34BF6ABC1E520DA300A736BB /* indent-increase@3x.png in Resources */,
 				34BF6B481E52136600A736BB /* redo.png in Resources */,
@@ -1064,7 +1065,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1106,7 +1107,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1120,7 +1121,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RichTextEditor/RichTextEditor-Prefix.pch";
 				INFOPLIST_FILE = "RichTextEditor/RichTextEditor-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aryaxt.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1134,7 +1135,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RichTextEditor/RichTextEditor-Prefix.pch";
 				INFOPLIST_FILE = "RichTextEditor/RichTextEditor-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aryaxt.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1197,7 +1198,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = RichTextEditorFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pikleproductions.RichTextEditorFramework;
@@ -1229,7 +1230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = RichTextEditorFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pikleproductions.RichTextEditorFramework;

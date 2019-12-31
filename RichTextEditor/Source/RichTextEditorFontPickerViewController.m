@@ -76,7 +76,7 @@
     
 	self.contentSizeForViewInPopover = CGSizeMake(250, 400);
 #endif
-
+    self.title = NSLocalizedString(@"Select Font", @"");
 }
 
 #pragma mark - IBActions -
