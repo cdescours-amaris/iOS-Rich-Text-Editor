@@ -1231,11 +1231,15 @@
 }
 
 - (UIModalPresentationStyle)modalPresentationStyleForRichTextEditorToolbar {
-	BOOL isUsingiPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
 	if (self.dataSource && [self.dataSource respondsToSelector:@selector(modalPresentationStyleForRichTextEditor:)]) {
 		return [self.dataSource modalPresentationStyleForRichTextEditor:self];
 	}
-	return isUsingiPad ? UIModalPresentationFormSheet : UIModalPresentationFullScreen;
+    if (@available(iOS 13, *)) {
+        return UIModalPresentationAutomatic;
+    } else {
+        BOOL isUsingiPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+        return isUsingiPad ? UIModalPresentationFormSheet : UIModalPresentationFullScreen;
+    }
 }
 
 - (UIModalTransitionStyle)modalTransitionStyleForRichTextEditorToolbar {

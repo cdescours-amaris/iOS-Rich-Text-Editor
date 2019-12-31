@@ -98,7 +98,7 @@
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"CircleWithCheckmarkCollectionViewCell" bundle:[NSBundle bundleForClass:[self class]]] forCellWithReuseIdentifier:@"CircleCheckmarkCell"];
     
-    self.preferredContentSize = CGSizeMake(300, 100);
+    self.preferredContentSize = CGSizeMake(300, 150);
     [self.collectionView reloadData];
 }
 
@@ -106,6 +106,11 @@
     if (self.delegate) {
         [self.delegate richTextEditorColorPickerViewControllerDidSelectClose];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.collectionView flashScrollIndicators];
 }
 
 #pragma mark - UICollectionViewDelegate / UICollectionViewDataSource
@@ -127,7 +132,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CircleWithCheckmarkCollectionViewCell *cell = (CircleWithCheckmarkCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"CircleCheckmarkCell" forIndexPath:indexPath];
     cell.color = self.colors[indexPath.row];
-    NSLog(@"%@", self.selectedColor);
     cell.selected = self.selectedColor && [cell.color isEqual:self.selectedColor];
     return cell;
 }
