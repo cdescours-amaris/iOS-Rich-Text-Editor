@@ -55,6 +55,7 @@
 		79957E1523BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79957E1223BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.m */; };
 		79957E1623BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79957E1323BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib */; };
 		79957E2423BC006A009E977C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79957E2323BC006A009E977C /* Images.xcassets */; };
+		79957E2623BC0523009E977C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79957E2523BC0523009E977C /* Colors.xcassets */; };
 		D28387081A7EE1340093AF3E /* OtherLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = D28387071A7EE1340093AF3E /* OtherLicenses.txt */; };
 /* End PBXBuildFile section */
 
@@ -146,6 +147,7 @@
 		79957E1223BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleWithCheckmarkCollectionViewCell.m; sourceTree = "<group>"; };
 		79957E1323BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CircleWithCheckmarkCollectionViewCell.xib; sourceTree = "<group>"; };
 		79957E2323BC006A009E977C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		79957E2523BC0523009E977C /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D28387071A7EE1340093AF3E /* OtherLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OtherLicenses.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,6 +192,7 @@
 				79957E0F23BBA87C009E977C /* Protocols */,
 				34BF6A281E51409400A736BB /* RichTextEditorFramework */,
 				79957E1023BBB5F5009E977C /* UICollectionViewCells */,
+				79957E2523BC0523009E977C /* Colors.xcassets */,
 				79957E2323BC006A009E977C /* Images.xcassets */,
 				153F957B179F9953005B2487 /* RichTextEditor.h */,
 				153F957C179F9953005B2487 /* RichTextEditor.m */,
@@ -488,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34BF6A921E5142CE00A736BB /* OtherLicenses.txt in Resources */,
+				79957E2623BC0523009E977C /* Colors.xcassets in Resources */,
 				79957E1623BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib in Resources */,
 				79957E2423BC006A009E977C /* Images.xcassets in Resources */,
 			);

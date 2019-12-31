@@ -71,8 +71,13 @@
 	if (self = [super initWithFrame:frame]) {
 		self.toolbarDelegate = delegate;
 		self.dataSource = dataSource;
-		
-		self.backgroundColor = [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1];
+
+        NSBundle *frameWorkBundle = [NSBundle bundleForClass:[self class]];
+        if (@available(iOS 11, *)) {
+            self.backgroundColor = [UIColor colorNamed:@"toolbar-background" inBundle:frameWorkBundle compatibleWithTraitCollection:nil];
+        } else {
+            self.backgroundColor = [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1];
+        }
 		self.layer.borderWidth = .7;
 		self.layer.borderColor = UIColor.lightGrayColor.CGColor;
 		
@@ -521,8 +526,13 @@
     [button addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
     button.frame = CGRectMake(0, 0, width, 0);
     button.titleLabel.font = [UIFont boldSystemFontOfSize:10];
-    button.titleLabel.textColor = UIColor.blackColor;
-    [button setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    if (@available(iOS 13, *)) {
+        button.titleLabel.textColor = UIColor.labelColor;
+        [button setTitleColor:UIColor.labelColor forState:UIControlStateNormal];
+    } else {
+        button.titleLabel.textColor = UIColor.blackColor;
+        [button setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    }
     return button;
 }
 
@@ -570,7 +580,11 @@
 
 - (UIView *)separatorView {
 	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, self.frame.size.height)];
-	view.backgroundColor = UIColor.lightGrayColor;
+    if (@available(iOS 13, *)) {
+        view.backgroundColor = UIColor.opaqueSeparatorColor;
+    } else {
+        view.backgroundColor = UIColor.lightGrayColor;
+    }
 	
 	return view;
 }
