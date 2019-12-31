@@ -197,6 +197,17 @@
 		3F16CE501F4BF65F000A8F64 /* RichTextImageAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */; };
 		3F16CE511F4BF65F000A8F64 /* RichTextImageAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */; };
 		79957E0A23BBA2B1009E977C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79957E0923BBA2B1009E977C /* Default-568h@2x.png */; };
+		79957E0D23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 79957E0B23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79957E0E23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79957E0C23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.m */; };
+		79957E1423BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 79957E1123BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.h */; };
+		79957E1523BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79957E1223BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.m */; };
+		79957E1623BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79957E1323BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib */; };
+		79957E1823BBBC0C009E977C /* check@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79957E1723BBBC0C009E977C /* check@3x.png */; };
+		79957E1A23BBBC11009E977C /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79957E1923BBBC11009E977C /* check@2x.png */; };
+		79957E1C23BBBC16009E977C /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 79957E1B23BBBC16009E977C /* check.png */; };
+		79957E2023BBBCF4009E977C /* check-white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79957E1D23BBBCF3009E977C /* check-white@2x.png */; };
+		79957E2123BBBCF4009E977C /* check-white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79957E1E23BBBCF3009E977C /* check-white@3x.png */; };
+		79957E2223BBBCF4009E977C /* check-white.png in Resources */ = {isa = PBXBuildFile; fileRef = 79957E1F23BBBCF3009E977C /* check-white.png */; };
 		D28387081A7EE1340093AF3E /* OtherLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = D28387071A7EE1340093AF3E /* OtherLicenses.txt */; };
 /* End PBXBuildFile section */
 
@@ -356,6 +367,17 @@
 		3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RichTextImageAttachment.h; sourceTree = "<group>"; };
 		3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RichTextImageAttachment.m; sourceTree = "<group>"; };
 		79957E0923BBA2B1009E977C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		79957E0B23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RichTextEditorSingleColorPickerViewController.h; sourceTree = "<group>"; };
+		79957E0C23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RichTextEditorSingleColorPickerViewController.m; sourceTree = "<group>"; };
+		79957E1123BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircleWithCheckmarkCollectionViewCell.h; sourceTree = "<group>"; };
+		79957E1223BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircleWithCheckmarkCollectionViewCell.m; sourceTree = "<group>"; };
+		79957E1323BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CircleWithCheckmarkCollectionViewCell.xib; sourceTree = "<group>"; };
+		79957E1723BBBC0C009E977C /* check@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@3x.png"; sourceTree = "<group>"; };
+		79957E1923BBBC11009E977C /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
+		79957E1B23BBBC16009E977C /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		79957E1D23BBBCF3009E977C /* check-white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-white@2x.png"; sourceTree = "<group>"; };
+		79957E1E23BBBCF3009E977C /* check-white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-white@3x.png"; sourceTree = "<group>"; };
+		79957E1F23BBBCF3009E977C /* check-white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-white.png"; sourceTree = "<group>"; };
 		D28387071A7EE1340093AF3E /* OtherLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OtherLicenses.txt; sourceTree = "<group>"; };
 		D2ECA7081A321FE900C57F03 /* button-center-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-center-selected.png"; sourceTree = "<group>"; };
 		D2ECA70A1A321FE900C57F03 /* button-left-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-left-selected.png"; sourceTree = "<group>"; };
@@ -400,15 +422,14 @@
 		153F9554179F9953005B2487 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				34BF6A281E51409400A736BB /* RichTextEditorFramework */,
 				153F9555179F9953005B2487 /* Assets */,
 				153F955A179F9953005B2487 /* Categories */,
 				3402F2681D98224E0066F4BE /* Helpers */,
+				79957E0F23BBA87C009E977C /* Protocols */,
+				34BF6A281E51409400A736BB /* RichTextEditorFramework */,
+				79957E1023BBB5F5009E977C /* UICollectionViewCells */,
 				153F957B179F9953005B2487 /* RichTextEditor.h */,
 				153F957C179F9953005B2487 /* RichTextEditor.m */,
-				34BF6AA31E514AA500A736BB /* RichTextEditorColorPicker.h */,
-				34BF6AA41E514AA500A736BB /* RichTextEditorFontPicker.h */,
-				34BF6AA51E514AA500A736BB /* RichTextEditorFontSizePicker.h */,
 				153F9584179F9953005B2487 /* RichTextEditorToolbar.h */,
 				153F9585179F9953005B2487 /* RichTextEditorToolbar.m */,
 				15B6E20D17A4C2820015867C /* RichTextEditorToggleButton.h */,
@@ -419,6 +440,8 @@
 				153F9580179F9953005B2487 /* RichTextEditorFontPickerViewController.m */,
 				153F9581179F9953005B2487 /* RichTextEditorFontSizePickerViewController.h */,
 				153F9582179F9953005B2487 /* RichTextEditorFontSizePickerViewController.m */,
+				79957E0B23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.h */,
+				79957E0C23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.m */,
 				3F16CE4E1F4BF65F000A8F64 /* RichTextImageAttachment.h */,
 				3F16CE4F1F4BF65F000A8F64 /* RichTextImageAttachment.m */,
 				D28387071A7EE1340093AF3E /* OtherLicenses.txt */,
@@ -433,6 +456,12 @@
 				34BF6B291E52121500A736BB /* attach-file.png */,
 				34BF6B2A1E52121500A736BB /* attach-file@2x.png */,
 				34BF6B2B1E52121500A736BB /* attach-file@3x.png */,
+				79957E1B23BBBC16009E977C /* check.png */,
+				79957E1923BBBC11009E977C /* check@2x.png */,
+				79957E1723BBBC0C009E977C /* check@3x.png */,
+				79957E1F23BBBCF3009E977C /* check-white.png */,
+				79957E1D23BBBCF3009E977C /* check-white@2x.png */,
+				79957E1E23BBBCF3009E977C /* check-white@3x.png */,
 				34BF6B5F1E5213E600A736BB /* code.png */,
 				34BF6B601E5213E600A736BB /* code@2x.png */,
 				34BF6B611E5213E600A736BB /* code@3x.png */,
@@ -616,6 +645,26 @@
 			path = ../../RichTextEditorFramework;
 			sourceTree = "<group>";
 		};
+		79957E0F23BBA87C009E977C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				34BF6AA31E514AA500A736BB /* RichTextEditorColorPicker.h */,
+				34BF6AA41E514AA500A736BB /* RichTextEditorFontPicker.h */,
+				34BF6AA51E514AA500A736BB /* RichTextEditorFontSizePicker.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		79957E1023BBB5F5009E977C /* UICollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				79957E1123BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.h */,
+				79957E1223BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.m */,
+				79957E1323BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib */,
+			);
+			path = UICollectionViewCells;
+			sourceTree = "<group>";
+		};
 		D2ECA7051A321FE900C57F03 /* buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -639,6 +688,7 @@
 			files = (
 				34BF6A531E5140D500A736BB /* RichTextEditor.h in Headers */,
 				34BF6AA81E514AA500A736BB /* RichTextEditorFontSizePicker.h in Headers */,
+				79957E0D23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.h in Headers */,
 				34BF6AA71E514AA500A736BB /* RichTextEditorFontPicker.h in Headers */,
 				34BF6AA61E514AA500A736BB /* RichTextEditorColorPicker.h in Headers */,
 				34BF6A4F1E5140D500A736BB /* NSAttributedString+RichTextEditor.h in Headers */,
@@ -647,6 +697,7 @@
 				34BF6A561E5140D500A736BB /* RichTextEditorColorPickerViewController.h in Headers */,
 				34BF6A571E5140D500A736BB /* RichTextEditorFontPickerViewController.h in Headers */,
 				3F16CE501F4BF65F000A8F64 /* RichTextImageAttachment.h in Headers */,
+				79957E1423BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.h in Headers */,
 				34BF6A581E5140D500A736BB /* RichTextEditorFontSizePickerViewController.h in Headers */,
 				34BF6A521E5140D500A736BB /* WZProtocolInterceptor.h in Headers */,
 				34BF6A541E5140D500A736BB /* RichTextEditorToolbar.h in Headers */,
@@ -850,6 +901,7 @@
 				34BF6A5C1E5142C500A736BB /* button-center-selected.png in Resources */,
 				34BF6AE61E520E3C00A736BB /* format-bold@2x.png in Resources */,
 				34BF6B3E1E52130A00A736BB /* keyboard-hide.png in Resources */,
+				79957E1C23BBBC16009E977C /* check.png in Resources */,
 				34BF6B391E52127900A736BB /* format-clear@3x.png in Resources */,
 				34BF6A5E1E5142C500A736BB /* button-left-selected.png in Resources */,
 				34BF6B641E5213E600A736BB /* code@2x.png in Resources */,
@@ -874,15 +926,18 @@
 				34BF6B7B1E52166800A736BB /* keyboard-arrow-up@3x.png in Resources */,
 				34BF6A691E5142C500A736BB /* colors.jpg in Resources */,
 				34BF6B501E52139000A736BB /* undo.png in Resources */,
+				79957E1623BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.xib in Resources */,
 				34BF6B081E520F9B00A736BB /* format-italic.png in Resources */,
 				34BF6B251E52118300A736BB /* format-list-numbered@2x.png in Resources */,
 				34BF6AF61E520F1E00A736BB /* format-strikethrough.png in Resources */,
 				34BF6AFA1E520F1E00A736BB /* format-strikethrough@3x.png in Resources */,
+				79957E1823BBBC0C009E977C /* check@3x.png in Resources */,
 				34BF6A711E5142C500A736BB /* format-color-fill.png in Resources */,
 				34BF6ACD1E520DED00A736BB /* format-align-justify@3x.png in Resources */,
 				34BF6AB01E520D8200A736BB /* indent-decrease.png in Resources */,
 				34BF6B1C1E52116000A736BB /* insert-link@2x.png in Resources */,
 				34BF6B5D1E5213B700A736BB /* email@3x.png in Resources */,
+				79957E2023BBBCF4009E977C /* check-white@2x.png in Resources */,
 				34BF6B661E5213E600A736BB /* code@3x.png in Resources */,
 				34BF6A721E5142C500A736BB /* format-color-fill@2x.png in Resources */,
 				34BF6A731E5142C500A736BB /* format-color-fill@3x.png in Resources */,
@@ -897,9 +952,11 @@
 				34BF6B5B1E5213B700A736BB /* email@2x.png in Resources */,
 				34BF6B621E5213E600A736BB /* code.png in Resources */,
 				34BF6AC21E520DCD00A736BB /* format-align-center@2x.png in Resources */,
+				79957E2123BBBCF4009E977C /* check-white@3x.png in Resources */,
 				34BF6ADB1E520E2300A736BB /* format-align-right.png in Resources */,
 				34BF6AD61E520E0300A736BB /* format-align-left@3x.png in Resources */,
 				34BF6B1A1E52116000A736BB /* insert-link.png in Resources */,
+				79957E1A23BBBC11009E977C /* check@2x.png in Resources */,
 				34BF6B6D1E52147A00A736BB /* format-first-line-indent@2x.png in Resources */,
 				34BF6ACB1E520DED00A736BB /* format-align-justify@2x.png in Resources */,
 				34BF6B011E520F3F00A736BB /* format-underlined@2x.png in Resources */,
@@ -908,6 +965,7 @@
 				34BF6AF11E520EFF00A736BB /* format-list-bulleted@3x.png in Resources */,
 				34BF6B301E52121500A736BB /* attach-file@3x.png in Resources */,
 				34BF6B1E1E52116000A736BB /* insert-link@3x.png in Resources */,
+				79957E2223BBBCF4009E977C /* check-white.png in Resources */,
 				34BF6AE41E520E3C00A736BB /* format-bold.png in Resources */,
 				34BF6B771E52166800A736BB /* keyboard-arrow-up.png in Resources */,
 				34BF6B591E5213B700A736BB /* email.png in Resources */,
@@ -967,6 +1025,8 @@
 			files = (
 				34BF6A451E5140C500A736BB /* NSAttributedString+RichTextEditor.m in Sources */,
 				34BF6A461E5140C500A736BB /* UIFont+RichTextEditor.m in Sources */,
+				79957E0E23BBA64C009E977C /* RichTextEditorSingleColorPickerViewController.m in Sources */,
+				79957E1523BBB622009E977C /* CircleWithCheckmarkCollectionViewCell.m in Sources */,
 				34BF6A471E5140C500A736BB /* UIView+RichTextEditor.m in Sources */,
 				34BF6A481E5140C500A736BB /* WZProtocolInterceptor.m in Sources */,
 				34BF6A491E5140C500A736BB /* RichTextEditor.m in Sources */,

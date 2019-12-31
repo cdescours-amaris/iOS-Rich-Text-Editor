@@ -95,11 +95,13 @@
 }
 
 - (void)setDelegate:(id)newDelegate {
-	self.delegate_interceptor.receiver = newDelegate;
+    [super setDelegate:nil];
+    self.delegate_interceptor.receiver = newDelegate;
+    [super setDelegate:(id)self.delegate_interceptor];
 }
 
 - (id)delegate {
-    return self.delegate_interceptor.receiver;
+    return self.delegate_interceptor;
 }
 
 - (void)setDataSource:(id<RichTextEditorDataSource>)dataSource {
@@ -119,7 +121,7 @@
 	[self.delegate_interceptor setMiddleMan:self];
 	[super setDelegate:(id)self.delegate_interceptor];
 	
-    self.borderColor = [UIColor lightGrayColor];
+    self.borderColor = UIColor.lightGrayColor;
     self.borderWidth = 1.0;
 	self.LEVELS_OF_UNDO = 15;
 	self.BULLET_STRING = @"•\u00A0"; // bullet is \u2022
@@ -154,9 +156,6 @@
 	
     // http://stackoverflow.com/questions/26454037/uitextview-text-selection-and-highlight-jumping-in-ios-8
     self.currSysVersion = UIDevice.currentDevice.systemVersion.floatValue;
-	if (self.currSysVersion >= 8.0) {
-        self.layoutManager.allowsNonContiguousLayout = NO;
-	}
 	// make sure we start on a blank string if needed and at the top of the text box
 	self.selectedRange = NSMakeRange(0, 0);
 	if ([[self.textStorage.string stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] isEqualToString:@""]) {

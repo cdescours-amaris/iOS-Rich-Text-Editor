@@ -70,12 +70,7 @@
 	
 	[self.view addSubview:self.tableview];
 	
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 70000
     self.preferredContentSize = CGSizeMake(250, 400);
-#else
-    
-	self.contentSizeForViewInPopover = CGSizeMake(250, 400);
-#endif
     self.title = NSLocalizedString(@"Select Font", @"");
 }
 

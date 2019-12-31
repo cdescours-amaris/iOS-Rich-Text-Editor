@@ -216,13 +216,13 @@
 }
 
 - (void)textForegroundColorSelected:(UIButton *)sender {
-	UIViewController <RichTextEditorColorPicker> *colorPicker = [self.dataSource colorPickerForRichTextEditorToolbarWithAction:RichTextEditorColorPickerActionTextForegroudColor];
+	UIViewController <RichTextEditorColorPicker> *colorPicker = [self.dataSource colorPickerForRichTextEditorToolbarWithAction:RichTextEditorColorPickerActionTextForegroundColor];
 	
     if (!colorPicker) {
 		colorPicker = [[RichTextEditorColorPickerViewController alloc] init];
     }
 	
-	colorPicker.action = RichTextEditorColorPickerActionTextForegroudColor;
+	colorPicker.action = RichTextEditorColorPickerActionTextForegroundColor;
 	colorPicker.delegate = self;
 	colorPicker.dataSource = self;
 	[self presentViewController:colorPicker fromView:sender];
