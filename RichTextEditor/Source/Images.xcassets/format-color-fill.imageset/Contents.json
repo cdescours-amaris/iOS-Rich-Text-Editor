@@ -7,7 +7,7 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "format-color-fill-24.png",
+      "filename" : "format-color-fill-1.png",
       "appearances" : [
         {
           "appearance" : "luminosity",
@@ -23,7 +23,7 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "format-color-fill-48.png",
+      "filename" : "format-color-fill@2x-1.png",
       "appearances" : [
         {
           "appearance" : "luminosity",
@@ -39,7 +39,7 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "format-color-fill-72.png",
+      "filename" : "format-color-fill@3x-1.png",
       "appearances" : [
         {
           "appearance" : "luminosity",
