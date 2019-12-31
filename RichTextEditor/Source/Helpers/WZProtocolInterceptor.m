@@ -8,10 +8,6 @@
 #import "WZProtocolInterceptor.h"
 #import  <objc/runtime.h>
 
-@interface WZProtocolInterceptor()
-
-@end
-
 static inline BOOL selector_belongsToProtocol(SEL selector, Protocol * protocol);
 
 @implementation WZProtocolInterceptor
