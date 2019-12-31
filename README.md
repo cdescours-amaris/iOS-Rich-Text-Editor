@@ -24,7 +24,7 @@ The BULLET_STRING was modified from '\u2022\t' to '\u2022\u00a0'. You may need t
 
 ## RichTextEditor for iPhone &amp; iPad
 
-**Requirements**: iOS 8.0 or higher
+**Requirements**: iOS 10.0 or higher
 
 Features:
 - Bold
