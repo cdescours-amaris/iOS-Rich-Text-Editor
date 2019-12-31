@@ -56,6 +56,8 @@
 @property NSString *BULLET_STRING;
 @property NSUInteger LEVELS_OF_UNDO;
 
+@property NSRange previousCursorPosition;
+
 @property BOOL justDeletedBackward;
 @property BOOL isInTextDidChange;
 
@@ -222,6 +224,7 @@
 	if (currentParagraphHasBullet) {
         self.inBulletedList = YES;
 	}
+    [self adjustSelectedRangeForBulletsWithStart:rangeOfCurrentParagraph andCurrent:textView.selectedRange];
 	[self sendDelegateTypingAttrsUpdate];
 	if (self.delegate_interceptor.receiver && [self.delegate_interceptor.receiver respondsToSelector:@selector(textViewDidChangeSelection:)]) {
 		[self.delegate_interceptor.receiver textViewDidChangeSelection:self];
@@ -1099,6 +1102,73 @@
         screenBounds.size = CGSizeMake(height, width);
     }
     return screenBounds;
+}
+
+ /**
+ * Does not allow cursor to be right beside the bullet point. This method also does not allow selection of the bullet point itself.
+ * It uses the previousCursorPosition property to save the previous cursor location.
+ *
+ * @param beginRange The beginning position of the paragraph
+ * @param currentRange The current cursor position after the new change
+ */
+- (void)adjustSelectedRangeForBulletsWithStart:(NSRange)beginRange andCurrent:(NSRange)currentRange {
+    NSUInteger previous = self.previousCursorPosition.location;
+    NSUInteger begin = beginRange.location;
+    NSUInteger current = currentRange.location;
+    NSRange finalRange = currentRange;
+    if (self.isInTextDidChange || self.justDeletedBackward) {
+        return;
+    }
+    NSRange rangeOfPreviousParagraph = [self.attributedText firstParagraphRangeFromTextRange:self.previousCursorPosition];
+    NSRange rangeOfCurrentParagraph = [self.attributedText firstParagraphRangeFromTextRange:currentRange];
+    BOOL previousParagraphHasBullet = [[self.attributedText.string substringFromIndex:rangeOfPreviousParagraph.location] hasPrefix:self.BULLET_STRING];
+    BOOL currentParagraphHasBullet = [[self.attributedText.string substringFromIndex:rangeOfCurrentParagraph.location] hasPrefix:self.BULLET_STRING];
+    if (current != previous && !currentParagraphHasBullet && previousParagraphHasBullet) {
+        return;
+    }
+    
+    // Bullet point from the same paragraph
+    if (self.inBulletedList) {
+        if (current == begin + 1 && currentRange.length > 0) {
+            if (previous > current) {
+                finalRange = NSMakeRange(begin, currentRange.length + 1);
+            }
+            else if (previous < current) {
+                finalRange = NSMakeRange(current + 1, currentRange.length - 1);
+            }
+        }
+        else {
+            if (current == begin && previous < current && currentRange.length >= 1) {
+                finalRange = NSMakeRange(begin, currentRange.length);
+            }
+            else if ((current == begin && (previous > current || previous < current)) ||
+                (current == (begin + 1) && (previous < current || current == previous)) ||
+                (current == begin && begin == previous && self.previousCursorPosition.length != currentRange.length)) {
+                finalRange = currentRange.length >= 1 ? NSMakeRange(begin, currentRange.length + 1) : NSMakeRange(begin + 2, 0);
+            }
+            else if (current == (begin + 1) && previous > current) {
+                BOOL isNewLocationValid = (begin - 1) > [self.attributedText.string length] ? NO : YES;
+                finalRange = currentRange.length >= 1 ? NSMakeRange(begin, currentRange.length + 1) : NSMakeRange(isNewLocationValid ? begin - 1 : begin + 2, 0);
+            }
+        }
+    }
+    
+    // Bullet point from a different pargraph
+    NSRange endingStringRange = [[self.attributedText.string substringWithRange:currentRange] rangeOfString:@"\n\u2022" options:NSBackwardsSearch];
+    NSUInteger currentRangeAddedProperties = currentRange.location + currentRange.length;
+    NSUInteger previousRangeAddedProperties = self.previousCursorPosition.location + self.previousCursorPosition.length;
+    BOOL currentParagraphHasBulletAtTheEnd = (endingStringRange.length + endingStringRange.location + currentRange.location) == currentRangeAddedProperties;
+    if (currentParagraphHasBulletAtTheEnd) {
+        if (previousRangeAddedProperties < currentRangeAddedProperties) {
+            finalRange = NSMakeRange(current, currentRange.length + 1);
+        }
+        else if (previousRangeAddedProperties > currentRangeAddedProperties) {
+            finalRange = NSMakeRange(current, currentRange.length - 1);
+        }
+    }
+    
+    self.previousCursorPosition = finalRange;
+    self.selectedRange = finalRange;
 }
 
 - (void)applyBulletListIfApplicable {
