@@ -55,6 +55,7 @@
 @property WZProtocolInterceptor *delegate_interceptor;
 @property NSString *BULLET_STRING;
 @property NSUInteger LEVELS_OF_UNDO;
+@property NSString *latestReplacementString;
 
 @property NSRange previousCursorPosition;
 
@@ -127,6 +128,7 @@
     self.borderWidth = 1.0;
 	self.LEVELS_OF_UNDO = 15;
 	self.BULLET_STRING = @"•\u00A0"; // bullet is \u2022
+    self.latestReplacementString = @"";
 	self.fontSizeChangeAmount = 6.0f;
 	self.maxFontSize = 128.0f;
 	self.minFontSize = 8.0f;
@@ -200,6 +202,7 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    self.latestReplacementString = text;
 	if ([text isEqualToString:@"\n"]) {
 		[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeEnter];
 		self.inBulletedList = [self isInBulletedList];
@@ -1176,11 +1179,11 @@
 	if (rangeOfCurrentParagraph.location == 0) {
         return; // there isn't a previous paragraph, so forget it. The user isn't in a bulleted list.
 	}
-	NSRange rangeOfPreviousParagraph = [self.attributedText firstParagraphRangeFromTextRange:NSMakeRange(rangeOfCurrentParagraph.location-1, 0)];
+	NSRange rangeOfPreviousParagraph = [self.attributedText firstParagraphRangeFromTextRange:NSMakeRange(rangeOfCurrentParagraph.location - 1, 0)];
     //NSLog(@"[RTE] Is the user in the bullet list? %d", self.userInBulletList);
+    BOOL previousParagraphHasBullet = [[self.attributedText.string substringFromIndex:rangeOfPreviousParagraph.location] hasPrefix:self.BULLET_STRING];
     if (!self.inBulletedList) { // fixes issue with backspacing into bullet list adding a bullet
 		BOOL currentParagraphHasBullet = [[self.attributedText.string substringFromIndex:rangeOfCurrentParagraph.location] hasPrefix:self.BULLET_STRING];
-		BOOL previousParagraphHasBullet = [[self.attributedText.string substringFromIndex:rangeOfPreviousParagraph.location] hasPrefix:self.BULLET_STRING];
         BOOL isCurrParaBlank = [[self.attributedText.string substringWithRange:rangeOfCurrentParagraph] isEqualToString:@""];
         // if we don't check to see if the current paragraph is blank, bad bugs happen with
         // the current paragraph where the selected range doesn't let the user type O_o
@@ -1204,9 +1207,9 @@
         }
         return;
     }
-	if (rangeOfCurrentParagraph.length != 0) {
-		return;
-	}
+    if (rangeOfCurrentParagraph.length != 0 && !(previousParagraphHasBullet && [self.latestReplacementString isEqualToString:@"\n"])) {
+        return;
+    }
 	if (!self.justDeletedBackward &&
 		[[self.attributedText.string substringFromIndex:rangeOfPreviousParagraph.location] hasPrefix:self.BULLET_STRING]) {
         [self richTextEditorToolbarDidSelectBulletListWithCaller:self];
@@ -1250,23 +1253,25 @@
             else {
                 // User may be needing to get out of a bulleted list due to hitting enter (return)
                 NSRange rangeOfCurrentParagraph = [self.attributedText firstParagraphRangeFromTextRange:self.selectedRange];
-                NSInteger prevParaLocation = rangeOfCurrentParagraph.location - 1;
-				if (prevParaLocation >= 0) {
-					NSRange rangeOfPreviousParagraph = [self.attributedText firstParagraphRangeFromTextRange:NSMakeRange(rangeOfCurrentParagraph.location - 1, 0)];
-					// If the following if statement is true, the user hit enter on a blank bullet list
-					// Basically, there is now a bullet ' ' \n bullet ' ' that we need to delete (' ' == space)
-					// Since it gets here AFTER it adds a new bullet
-					if ([[self.attributedText.string substringWithRange:rangeOfPreviousParagraph] hasSuffix:self.BULLET_STRING]) {
-						[self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeBullet];
-						//NSLog(@"[RTE] Getting rid of bullets due to user hitting enter.");
-						NSRange rangeToDelete = NSMakeRange(rangeOfPreviousParagraph.location, rangeOfPreviousParagraph.length + rangeOfCurrentParagraph.length + 1);
-						[self.textStorage deleteCharactersInRange:rangeToDelete];
-						NSRange newRange = NSMakeRange(rangeOfPreviousParagraph.location, 0);
-						self.selectedRange = newRange;
-						// Get rid of bullet indentation
-						[self removeBulletIndentation:newRange];
-					}
-                }
+                NSString *currentParagraphString = [self.text substringWithRange:rangeOfCurrentParagraph];
+                NSInteger prevParaLocation = rangeOfCurrentParagraph.location-1;
+                // [currentParagraphString isEqualToString:self.BULLET_STRING] ==> "is the current paragraph an empty bulleted list item?"
+                if (prevParaLocation >= 0 && [currentParagraphString isEqualToString:self.BULLET_STRING]) {
+                    NSRange rangeOfPreviousParagraph = [self.attributedText firstParagraphRangeFromTextRange:NSMakeRange(rangeOfCurrentParagraph.location-1, 0)];
+                    // If the following if statement is true, the user hit enter on a blank bullet list
+                    // Basically, there is now a bullet ' ' \n bullet ' ' that we need to delete (' ' == space)
+                    // Since it gets here AFTER it adds a new bullet
+                    if ([[self.text substringWithRange:rangeOfPreviousParagraph] hasSuffix:self.BULLET_STRING]) {
+                        [self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeBullet];
+                        //NSLog(@"[RTE] Getting rid of bullets due to user hitting enter.");
+                        NSRange rangeToDelete = NSMakeRange(rangeOfPreviousParagraph.location, rangeOfPreviousParagraph.length+rangeOfCurrentParagraph.length+1);
+                        [self.textStorage deleteCharactersInRange:rangeToDelete];
+                        NSRange newRange = NSMakeRange(rangeOfPreviousParagraph.location, 0);
+                        self.selectedRange = newRange;
+                        // Get rid of bullet indentation
+                        [self removeBulletIndentation:newRange];
+                    }
+                }   
             }
         }
 	}
