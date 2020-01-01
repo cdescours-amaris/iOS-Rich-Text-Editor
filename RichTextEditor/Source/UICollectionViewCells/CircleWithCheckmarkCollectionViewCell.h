@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CircleWithCheckmarkCollectionViewCell : UICollectionViewCell
 
 @property UIColor *color;
+@property BOOL useWhiteCheckmark; // defaults to NO
 
 @end
 

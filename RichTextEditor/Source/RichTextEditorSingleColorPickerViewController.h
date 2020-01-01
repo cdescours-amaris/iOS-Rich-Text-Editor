@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSArray<UIColor*> *colors;
 @property UIColor *selectedColor;
+@property BOOL useWhiteCheckmark; // defaults to NO
 
 @end
 

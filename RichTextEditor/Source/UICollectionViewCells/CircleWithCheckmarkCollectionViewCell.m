@@ -40,6 +40,9 @@
 
 -(void)setSelected:(BOOL)selected {
     [super setSelected:selected];
+    NSBundle *frameworkBundle = [NSBundle bundleForClass:[self class]];
+    NSString *imageName = self.useWhiteCheckmark ? @"check-white" : @"check";
+    self.checkmarkView.image = [UIImage imageNamed:imageName inBundle:frameworkBundle compatibleWithTraitCollection:nil];
     self.checkmarkView.hidden = !selected;
 }
 

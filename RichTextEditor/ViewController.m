@@ -69,8 +69,10 @@
     if (action == RichTextEditorColorPickerActionTextBackgroundColor) {
         picker.colors = @[UIColor.orangeColor, UIColor.yellowColor];
         picker.selectedColor = self.latestBackgroundColor;
+        picker.useWhiteCheckmark = NO;
     } else {
         picker.selectedColor = self.latestTextColor;
+        picker.useWhiteCheckmark = YES;
     }
     return picker;
 }

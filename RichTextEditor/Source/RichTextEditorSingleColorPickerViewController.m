@@ -132,6 +132,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CircleWithCheckmarkCollectionViewCell *cell = (CircleWithCheckmarkCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:@"CircleCheckmarkCell" forIndexPath:indexPath];
     cell.color = self.colors[indexPath.row];
+    cell.useWhiteCheckmark = self.useWhiteCheckmark;
     cell.selected = self.selectedColor && [cell.color isEqual:self.selectedColor];
     return cell;
 }
