@@ -71,10 +71,9 @@
 }
 
 - (UIFont *)fontWithBoldTrait:(BOOL)bold italicTrait:(BOOL)italic andSize:(CGFloat)size {
-	CTFontRef fontRef = (__bridge CTFontRef)self;
-	NSString *familyName = (__bridge NSString *)(CTFontCopyName(fontRef, kCTFontFamilyNameKey));
-	NSString *postScriptName = [UIFont postscriptNameFromFullName:familyName];
-	return [[self class] fontWithName:postScriptName size:size boldTrait:bold italicTrait:italic];
+    UIFontDescriptorSymbolicTraits traits = (bold ? UIFontDescriptorTraitBold : 0) | (italic ? UIFontDescriptorTraitItalic : 0);
+    UIFontDescriptor * fontD = [self.fontDescriptor fontDescriptorWithSymbolicTraits:traits];
+    return [UIFont fontWithDescriptor:fontD size:size];
 }
 
 - (UIFont *)fontWithBoldTrait:(BOOL)bold andItalicTrait:(BOOL)italic {
