@@ -66,6 +66,8 @@
 @property CGFloat maxFontSize;
 @property CGFloat minFontSize;
 
+@property BOOL isInTextViewDidChangeSelection;
+
 @end
 
 @implementation RichTextEditor
@@ -132,6 +134,7 @@
 	self.fontSizeChangeAmount = 6.0f;
 	self.maxFontSize = 128.0f;
 	self.minFontSize = 8.0f;
+    self.isInTextViewDidChangeSelection = NO;
 	
 	self.toolBar = [[RichTextEditorToolbar alloc] initWithFrame:CGRectMake(0, 0, [self currentScreenBoundsDependOnOrientation].size.width, RICHTEXTEDITOR_TOOLBAR_HEIGHT)
 													   delegate:self
@@ -191,7 +194,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-	if (!self.isInTextDidChange){
+	if (!self.isInTextDidChange) {
 		self.isInTextDidChange = YES;
 		[self applyBulletListIfApplicable];
 		[self deleteBulletListWhenApplicable];
@@ -227,7 +230,11 @@
 	if (currentParagraphHasBullet) {
         self.inBulletedList = YES;
 	}
-    [self adjustSelectedRangeForBulletsWithStart:rangeOfCurrentParagraph andCurrent:textView.selectedRange];
+    if (!self.isInTextViewDidChangeSelection) {
+        self.isInTextViewDidChangeSelection = YES;
+        [self adjustSelectedRangeForBulletsWithStart:rangeOfCurrentParagraph andCurrent:textView.selectedRange];
+        self.isInTextViewDidChangeSelection = NO;
+    }
 	[self sendDelegateTypingAttrsUpdate];
 	if (self.delegate_interceptor.receiver && [self.delegate_interceptor.receiver respondsToSelector:@selector(textViewDidChangeSelection:)]) {
 		[self.delegate_interceptor.receiver textViewDidChangeSelection:self];
@@ -1156,7 +1163,7 @@
         }
     }
     
-    // Bullet point from a different pargraph
+    // Bullet point from a different paragraph
     NSRange endingStringRange = [[self.attributedText.string substringWithRange:currentRange] rangeOfString:@"\n\u2022" options:NSBackwardsSearch];
     NSUInteger currentRangeAddedProperties = currentRange.location + currentRange.length;
     NSUInteger previousRangeAddedProperties = self.previousCursorPosition.location + self.previousCursorPosition.length;
