@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
     }
     s.author = {'Aryan Gh' => 'https://github.com/Deadpikle/iOS-Rich-Text-Editor'}
     s.source = {:git => 'https://github.com/Deadpikle/iOS-Rich-Text-Editor.git', :tag => '0.8.0'}
-    s.platform = :ios, '10  .0'
+    s.platform = :ios, '10.0'
     s.source_files = 'RichTextEditor/Source/*.{h,m}','RichTextEditor/Source/Categories/*.{h,m}'
     s.resources = ['RichTextEditor/Source/Assets/**/*']
     s.framework = 'Foundation', 'UIKit'
