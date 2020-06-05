@@ -163,7 +163,9 @@ typedef NS_ENUM(NSInteger, RichTextEditorPreviewChange) {
 - (void)setBorderWidth:(CGFloat)borderWidth;
 - (void)changeToAttributedString:(NSAttributedString*)string;
 - (NSString *)htmlString;
+
 - (void)setHtmlString:(NSString *)htmlString;
++ (RichTextEditorFeature)limitedFeatures;
 + (NSString *)htmlStringFromAttributedText:(NSAttributedString*)text;
 + (NSAttributedString*)attributedStringFromHTMLString:(NSString *)htmlString;
 

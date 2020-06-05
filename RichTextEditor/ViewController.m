@@ -59,24 +59,7 @@
 }
 
 - (RichTextEditorFeature)featuresEnabledForRichTextEditor:(RichTextEditor *)richTextEditor {
-    return RichTextEditorFeatureBold                    |
-    RichTextEditorFeatureItalic                    |
-    RichTextEditorFeatureUnderline                |
-    RichTextEditorFeatureStrikeThrough            |
-    RichTextEditorFeatureTextAlignmentLeft        |
-    RichTextEditorFeatureTextAlignmentCenter    |
-    RichTextEditorFeatureTextAlignmentRight        |
-    RichTextEditorFeatureTextAlignmentJustified    |
-    RichTextEditorFeatureTextBackgroundColor    |
-    RichTextEditorFeatureTextForegroundColor    |
-    RichTextEditorFeatureParagraphIndentation    |
-    RichTextEditorFeatureTitle1 |
-    RichTextEditorFeatureTitle2 |
-    RichTextEditorFeatureBody |
-    RichTextEditorFeatureBulletList |
-    RichTextEditorTextAttachment |
-    RichTextEditorFeatureDismissKeyboard
-    ;
+    return [RichTextEditor limitedFeatures];
 }
 
 - (UIViewController <RichTextEditorColorPicker> *)colorPickerForRichTextEditor:(RichTextEditor *)richTextEditor withAction:(RichTextEditorColorPickerAction)action {

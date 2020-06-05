@@ -76,6 +76,28 @@
 	return @"iOSRichTextEditor27";
 }
 
+
++ (RichTextEditorFeature) limitedFeatures {
+    return RichTextEditorFeatureBold                    |
+    RichTextEditorFeatureItalic                    |
+    RichTextEditorFeatureUnderline                |
+    RichTextEditorFeatureStrikeThrough            |
+    RichTextEditorFeatureTextAlignmentLeft        |
+    RichTextEditorFeatureTextAlignmentCenter    |
+    RichTextEditorFeatureTextAlignmentRight        |
+    RichTextEditorFeatureTextAlignmentJustified    |
+    RichTextEditorFeatureTextBackgroundColor    |
+    RichTextEditorFeatureTextForegroundColor    |
+    RichTextEditorFeatureParagraphIndentation    |
+    RichTextEditorFeatureTitle1 |
+    RichTextEditorFeatureTitle2 |
+    RichTextEditorFeatureBody |
+    RichTextEditorFeatureBulletList |
+    RichTextEditorTextAttachment |
+    RichTextEditorFeatureDismissKeyboard
+    ;
+}
+
 #pragma mark - Initialization -
 
 - (id)init {
@@ -486,6 +508,7 @@
     [self sendDelegateTypingAttrsUpdate];
     [self sendDelegateTVChanged];
 }
+
 
 - (void)richTextEditorToolbarDidSelectTitle1 {
         //TODO
