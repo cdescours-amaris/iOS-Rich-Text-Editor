@@ -59,7 +59,24 @@
 }
 
 - (RichTextEditorFeature)featuresEnabledForRichTextEditor:(RichTextEditor *)richTextEditor {
-	return RichTextEditorFeatureFontSize | RichTextEditorFeatureFont | RichTextEditorFeatureAll;
+    return RichTextEditorFeatureBold                    |
+    RichTextEditorFeatureItalic                    |
+    RichTextEditorFeatureUnderline                |
+    RichTextEditorFeatureStrikeThrough            |
+    RichTextEditorFeatureTextAlignmentLeft        |
+    RichTextEditorFeatureTextAlignmentCenter    |
+    RichTextEditorFeatureTextAlignmentRight        |
+    RichTextEditorFeatureTextAlignmentJustified    |
+    RichTextEditorFeatureTextBackgroundColor    |
+    RichTextEditorFeatureTextForegroundColor    |
+    RichTextEditorFeatureParagraphIndentation    |
+    RichTextEditorFeatureTitle1 |
+    RichTextEditorFeatureTitle2 |
+    RichTextEditorFeatureBody |
+    RichTextEditorFeatureBulletList |
+    RichTextEditorTextAttachment |
+    RichTextEditorFeatureDismissKeyboard
+    ;
 }
 
 - (UIViewController <RichTextEditorColorPicker> *)colorPickerForRichTextEditor:(RichTextEditor *)richTextEditor withAction:(RichTextEditorColorPickerAction)action {
@@ -78,10 +95,14 @@
 }
 
 - (BOOL)richTextEditorColorPickerViewControllerShouldDisplayToolbar {
-    return YES;
+    return NO;
 }
 
 - (BOOL)richTextEditorColorPickerViewControllerShouldDisplayAllColors { // return NO to only display a select # of colors {
+    return YES;
+}
+
+- (BOOL)richTextEditor:(RichTextEditor *)editor keyDownEvent:(UIEvent *)event {
     return NO;
 }
 
