@@ -47,6 +47,9 @@
 @property (nonatomic, strong) RichTextEditorToggleButton *btnStrikeThrough;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnFontSize;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnFont;
+@property (nonatomic, strong) RichTextEditorToggleButton *btnTitle1;
+@property (nonatomic, strong) RichTextEditorToggleButton *btnTitle2;
+@property (nonatomic, strong) RichTextEditorToggleButton *btnBody;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnBackgroundColor;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnForegroundColor;
 @property (nonatomic, strong) RichTextEditorToggleButton *btnTextAlignmentLeft;
@@ -100,10 +103,14 @@
 	NSParagraphStyle *paragraphStyle = [attributes objectForKey:NSParagraphStyleAttributeName];
 	[self.btnFontSize setTitle:[NSString stringWithFormat:@"%.f", font.pointSize] forState:UIControlStateNormal];
 	[self.btnFont setTitle:font.familyName forState:UIControlStateNormal];
-	
-	self.btnBold.on = [font isBold];
+
+    self.btnBold.on = [font isBold];
 	self.btnItalic.on = [font isItalic];
-	
+
+    self.btnTitle1.on = NO;
+    self.btnTitle2.on = NO;
+    self.btnBody.on = YES;
+
 	self.btnTextAlignmentLeft.on = NO;
 	self.btnTextAlignmentCenter.on = NO;
 	self.btnTextAlignmentRight.on = NO;
@@ -140,7 +147,31 @@
 #pragma mark - IBActions -
 
 - (void)boldSelected:(UIButton *)sender {
-	[self.toolbarDelegate richTextEditorToolbarDidSelectBold];
+    [self.toolbarDelegate richTextEditorToolbarDidSelectBold];
+}
+
+- (void)title1Selected:(UIButton *)sender {
+    self.btnTitle1.on = YES;
+    self.btnTitle2.on = NO;
+    self.btnBody.on = NO;
+
+    [self.toolbarDelegate richTextEditorToolbarDidSelectTitle1];
+}
+
+- (void)title2Selected:(UIButton *)sender {
+    self.btnTitle1.on = NO;
+    self.btnTitle2.on = YES;
+    self.btnBody.on = NO;
+
+    [self.toolbarDelegate richTextEditorToolbarDidSelectTitle2];
+}
+
+- (void)bodySelected:(UIButton *)sender {
+    self.btnTitle1.on = NO;
+    self.btnTitle2.on = NO;
+    self.btnBody.on = YES;
+
+    [self.toolbarDelegate richTextEditorToolbarDidSelectBody];
 }
 
 - (void)italicSelected:(UIButton *)sender {
@@ -311,11 +342,27 @@
 		lastAddedView = [self addView:self.btnFontSize afterView:lastAddedView withSpacing:YES];
 		lastAddedView = [self addView:separatorView afterView:lastAddedView withSpacing:YES];
 	}
-	
-	// Bold
-	if (features & RichTextEditorFeatureBold || features & RichTextEditorFeatureAll) {
-		lastAddedView = [self addView:self.btnBold afterView:lastAddedView withSpacing:YES];
-	}
+
+    // Title1
+    if (features & RichTextEditorFeatureTitle1 || features & RichTextEditorFeatureAll) {
+        lastAddedView = [self addView:self.btnTitle1 afterView:lastAddedView withSpacing:YES];
+    }
+
+    // Title2
+    if (features & RichTextEditorFeatureTitle2 || features & RichTextEditorFeatureAll) {
+        lastAddedView = [self addView:self.btnTitle2 afterView:lastAddedView withSpacing:YES];
+    }
+
+
+    // Body
+    if (features & RichTextEditorFeatureBody || features & RichTextEditorFeatureAll) {
+        lastAddedView = [self addView:self.btnBody afterView:lastAddedView withSpacing:YES];
+    }
+
+    // Bold
+    if (features & RichTextEditorFeatureBold || features & RichTextEditorFeatureAll) {
+        lastAddedView = [self addView:self.btnBold afterView:lastAddedView withSpacing:YES];
+    }
 	
 	// Italic
 	if (features & RichTextEditorFeatureItalic || features & RichTextEditorFeatureAll) {
@@ -408,7 +455,7 @@
 	
 	// I think he wanted TextAttachment here, not BulletList
 	if (features & RichTextEditorTextAttachment || features & RichTextEditorFeatureAll) {
-		lastAddedView = [self addView:self.btnTextAttachment afterView:lastAddedView withSpacing:YES];
+        [self addView:self.btnTextAttachment afterView:lastAddedView withSpacing:YES];
 	}
 	
 	[self scrollRectToVisible:visibleRect animated:NO];
@@ -434,10 +481,22 @@
 	self.btnFontSize.titleLabel.transform = CGAffineTransformMakeScale(-1.0, 1.0);
 	self.btnFontSize.imageView.transform = CGAffineTransformMakeScale(-1.0, 1.0);
 	self.btnFontSize.titleLabel.font = [self.btnFont.titleLabel.font fontWithSize:16];
-	
-	self.btnBold = [self buttonWithDefaultImageNamed:@"format-bold"
+
+    self.btnBold = [self buttonWithDefaultImageNamed:@"format-bold"
                                          andSelector:@selector(boldSelected:)
                                           forFeature:RichTextEditorFeatureBold];
+
+    self.btnTitle1 = [self buttonWithDefaultImageNamed:@"Title 1"
+                                       andSelector:@selector(title1Selected:)
+                                        forFeature:RichTextEditorFeatureTitle1];
+
+    self.btnTitle2 = [self buttonWithDefaultImageNamed:@"Title 2"
+                                           andSelector:@selector(title2Selected:)
+                                            forFeature:RichTextEditorFeatureTitle2];
+
+    self.btnBody = [self buttonWithDefaultImageNamed:@"Body"
+                                           andSelector:@selector(bodySelected:)
+                                            forFeature:RichTextEditorFeatureBody];
 	
 	self.btnItalic = [self buttonWithDefaultImageNamed:@"format-italic"
                                            andSelector:@selector(italicSelected:)

@@ -64,8 +64,11 @@
 		NSString *fontNameKey = (__bridge NSString *)(CTFontCopyName(newFontRef, kCTFontPostScriptNameKey));
         CGFloat size = CTFontGetSize(newFontRef);
 		CFRelease(newFontRef);
-		return [UIFont fontWithName:fontNameKey size:size];
-	}
+		UIFont* font = [UIFont fontWithName:fontNameKey size:size];
+        CFRelease((__bridge CFTypeRef)(fontNameKey));
+
+        return font;
+    }
 	
 	return nil;
 }

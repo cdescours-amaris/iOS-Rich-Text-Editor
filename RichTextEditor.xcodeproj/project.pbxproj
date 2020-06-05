@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -57,6 +57,7 @@
 		79957E2423BC006A009E977C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79957E2323BC006A009E977C /* Images.xcassets */; };
 		79957E2623BC0523009E977C /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79957E2523BC0523009E977C /* Colors.xcassets */; };
 		D28387081A7EE1340093AF3E /* OtherLicenses.txt in Resources */ = {isa = PBXBuildFile; fileRef = D28387071A7EE1340093AF3E /* OtherLicenses.txt */; };
+		D87CE6F5247598A5001A339E /* SwiftRichString in Frameworks */ = {isa = PBXBuildFile; productRef = D87CE6F4247598A5001A339E /* SwiftRichString */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +179,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87CE6F5247598A5001A339E /* SwiftRichString in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +428,9 @@
 			dependencies = (
 			);
 			name = RichTextEditor;
+			packageProductDependencies = (
+				D87CE6F4247598A5001A339E /* SwiftRichString */,
+			);
 			productName = RichTextEditorFramework;
 			productReference = 34BF6A271E51409400A736BB /* RichTextEditor.framework */;
 			productType = "com.apple.product-type.framework";
@@ -455,6 +460,9 @@
 				en,
 			);
 			mainGroup = 158389031735A5D7006DE713;
+			packageReferences = (
+				D87CE6F3247598A5001A339E /* XCRemoteSwiftPackageReference "SwiftRichString" */,
+			);
 			productRefGroup = 1583890F1735A5D7006DE713 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -696,7 +704,10 @@
 				GCC_PREFIX_HEADER = "RichTextEditor/RichTextEditor-Prefix.pch";
 				INFOPLIST_FILE = "RichTextEditor/RichTextEditor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aryaxt.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -710,7 +721,10 @@
 				GCC_PREFIX_HEADER = "RichTextEditor/RichTextEditor-Prefix.pch";
 				INFOPLIST_FILE = "RichTextEditor/RichTextEditor-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.aryaxt.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -773,7 +787,11 @@
 				INFOPLIST_FILE = RichTextEditorFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pikleproductions.RichTextEditorFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -805,7 +823,11 @@
 				INFOPLIST_FILE = RichTextEditorFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pikleproductions.RichTextEditorFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -855,6 +877,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D87CE6F3247598A5001A339E /* XCRemoteSwiftPackageReference "SwiftRichString" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftRichString.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D87CE6F4247598A5001A339E /* SwiftRichString */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D87CE6F3247598A5001A339E /* XCRemoteSwiftPackageReference "SwiftRichString" */;
+			productName = SwiftRichString;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 158389051735A5D7006DE713 /* Project object */;
 }

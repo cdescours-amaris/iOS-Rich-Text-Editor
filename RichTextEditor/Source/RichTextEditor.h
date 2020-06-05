@@ -57,11 +57,14 @@ typedef NS_OPTIONS(NSUInteger, RichTextEditorFeature) {
 	RichTextEditorTextAttachment						= 1 << 16,
 	RichTextEditorFeatureUndoRedo						= 1 << 17, // RichTextEditorFeatureUndoRedo includes undo and redo
 	RichTextEditorFeatureDismissKeyboard				= 1 << 18,
-	RichTextEditorFeatureAll							= 1 << 19,
-    RichTextEditorFeatureParagraphIndentationDecrease   = 1 << 20,
-    RichTextEditorFeatureParagraphIndentationIncrease   = 1 << 21,
-    RichTextEditorFeatureUndo                           = 1 << 22, // also included in RichTextEditorFeatureUndoRedo
-    RichTextEditorFeatureRedo                           = 1 << 23, // also included in RichTextEditorFeatureUndoRedo
+    RichTextEditorFeatureTitle1                         = 1 << 19,
+    RichTextEditorFeatureTitle2                         = 1 << 20,
+    RichTextEditorFeatureBody                           = 1 << 21,
+	RichTextEditorFeatureAll							= 1 << 22,
+    RichTextEditorFeatureParagraphIndentationDecrease   = 1 << 23,
+    RichTextEditorFeatureParagraphIndentationIncrease   = 1 << 23,
+    RichTextEditorFeatureUndo                           = 1 << 25, // also included in RichTextEditorFeatureUndoRedo
+    RichTextEditorFeatureRedo                           = 1 << 26, // also included in RichTextEditorFeatureUndoRedo
 };
 
 @class RichTextEditor;
@@ -113,8 +116,11 @@ typedef NS_ENUM(NSInteger, RichTextEditorPreviewChange) {
 	RichTextEditorPreviewChangeBullet,
 	RichTextEditorPreviewChangeMouseDown,
 	RichTextEditorPreviewChangeArrowKey,
-	RichTextEditorPreviewChangeKeyDown,
-	RichTextEditorPreviewChangeDelete
+    RichTextEditorPreviewChangeKeyDown,
+    RichTextEditorPreviewChangeDelete,
+    RichTextEditorPreviewChangeTitle1,
+    RichTextEditorPreviewChangeTitle2,
+    RichTextEditorPreviewChangeBody
 };
 
 @protocol RichTextEditorDelegate <NSObject>

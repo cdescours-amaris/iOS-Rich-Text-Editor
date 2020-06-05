@@ -42,6 +42,9 @@ typedef NS_ENUM(NSUInteger, ParagraphIndentation) {
 
 - (void)richTextEditorToolbarDidDismissViewController;
 - (void)richTextEditorToolbarDidSelectBold;
+- (void)richTextEditorToolbarDidSelectTitle1;
+- (void)richTextEditorToolbarDidSelectTitle2;
+- (void)richTextEditorToolbarDidSelectBody;
 - (void)richTextEditorToolbarDidSelectItalic;
 - (void)richTextEditorToolbarDidSelectUnderline;
 - (void)richTextEditorToolbarDidSelectStrikeThrough;
