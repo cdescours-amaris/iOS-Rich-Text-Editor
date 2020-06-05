@@ -78,15 +78,11 @@
 }
 
 - (BOOL)richTextEditorColorPickerViewControllerShouldDisplayToolbar {
-    return NO;
+    return YES;
 }
 
 - (BOOL)richTextEditorColorPickerViewControllerShouldDisplayAllColors { // return NO to only display a select # of colors {
     return YES;
-}
-
-- (BOOL)richTextEditor:(RichTextEditor *)editor keyDownEvent:(UIEvent *)event {
-    return NO;
 }
 
 -(void)selectionForEditor:(RichTextEditor*)editor changedTo:(NSRange)range isBold:(BOOL)isBold isItalic:(BOOL)isItalic isUnderline:(BOOL)isUnderline isInBulletedList:(BOOL)isInBulletedList textBackgroundColor:(UIColor*)textBackgroundColor textColor:(UIColor*)textColor {
