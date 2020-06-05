@@ -304,12 +304,6 @@
 - (void)deleteBackward {
     self.justDeletedBackward = YES;
     [super deleteBackward];
-}
-
-- (void)insertText:(nonnull NSString *)text {
-    //TODO: implement
-}
-
 
 #pragma mark - Override Methods -
 
