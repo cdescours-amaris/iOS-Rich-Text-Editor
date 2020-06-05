@@ -311,9 +311,8 @@
 		return;
 	}
 	
-    // If iPhone device, allow for keyboard dismissal
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone &&
-        ((features & RichTextEditorFeatureDismissKeyboard) || (features & RichTextEditorFeatureAll))) {
+    // allow for keyboard dismissal
+    if (((features & RichTextEditorFeatureDismissKeyboard) || (features & RichTextEditorFeatureAll))) {
         lastAddedView = [self addView:self.btnDismissKeyboard afterView:lastAddedView withSpacing:YES];
         lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
     }
@@ -357,6 +356,11 @@
     // Body
     if (features & RichTextEditorFeatureBody || features & RichTextEditorFeatureAll) {
         lastAddedView = [self addView:self.btnBody afterView:lastAddedView withSpacing:YES];
+    }
+
+        // Separator view after font properties.
+    if (features & RichTextEditorFeatureBody || features & RichTextEditorFeatureTitle1 || features & RichTextEditorFeatureTitle2  || features & RichTextEditorFeatureAll) {
+        lastAddedView = [self addView:[self separatorView] afterView:lastAddedView withSpacing:YES];
     }
 
     // Bold
@@ -638,13 +642,8 @@
 }
 
 - (UIView *)separatorView {
-	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 1, self.frame.size.height)];
-    if (@available(iOS 13, *)) {
-        view.backgroundColor = UIColor.opaqueSeparatorColor;
-    } else {
-        view.backgroundColor = UIColor.lightGrayColor;
-    }
-	
+	UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 20, self.frame.size.height)];
+    view.backgroundColor = UIColor.clearColor;
 	return view;
 }
 
