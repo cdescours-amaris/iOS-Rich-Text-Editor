@@ -107,10 +107,6 @@
     self.btnBold.on = [font isBold];
 	self.btnItalic.on = [font isItalic];
 
-    self.btnTitle1.on = NO;
-    self.btnTitle2.on = NO;
-    self.btnBody.on = YES;
-
 	self.btnTextAlignmentLeft.on = NO;
 	self.btnTextAlignmentCenter.on = NO;
 	self.btnTextAlignmentRight.on = NO;
@@ -569,6 +565,12 @@
     self.btnDismissKeyboard = [self buttonWithDefaultImageNamed:@"keyboard-hide"
                                                     andSelector:@selector(dismissKeyboard:)
                                                      forFeature:RichTextEditorFeatureDismissKeyboard];
+
+
+    self.btnTitle1.on = NO;
+    self.btnTitle2.on = NO;
+    self.btnBody.on = YES;
+
 }
 
 

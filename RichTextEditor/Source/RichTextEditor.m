@@ -513,16 +513,49 @@
 - (void)richTextEditorToolbarDidSelectTitle1 {
         //TODO
     NSLog(@"Title 1");
+    [self sendDelegatePreviewChangeOfType:RichTextEditorPreviewChangeFontSize];
+
+
+    [self applyFontAttributesWithBoldTrait:@YES
+                               italicTrait:@NO
+                                  fontName:nil
+                                  fontSize:@22
+                             toTextAtRange:[self selectedRange]
+                           foregroundColor:[UIColor colorWithRed:180.0f/255.0f
+                                                           green:37.0f/255.0f
+                                                            blue:115.0f/255.0f
+                                                           alpha:1.0]
+                           backgroundColor:nil];
+    [self sendDelegateTVChanged];
 }
 
 - (void)richTextEditorToolbarDidSelectTitle2 {
         //TODO
     NSLog(@"Title 2");
+    [self applyFontAttributesWithBoldTrait:@YES
+                               italicTrait:@NO
+                                  fontName:nil
+                                  fontSize:@22
+                             toTextAtRange:[self selectedRange]
+                           foregroundColor:[UIColor colorWithRed:27.0f/255.0f
+                                                           green:24.0f/255.0f
+                                                            blue:102.0f/255.0f
+                                                           alpha:1.0]
+                           backgroundColor:nil];
+    [self sendDelegateTVChanged];
 }
 
 - (void)richTextEditorToolbarDidSelectBody {
         //TODO
     NSLog(@"Body");
+    [self applyFontAttributesWithBoldTrait:@NO
+                               italicTrait:@NO
+                                  fontName:nil
+                                  fontSize:@18
+                             toTextAtRange:[self selectedRange]
+                           foregroundColor:UIColor.blackColor
+                           backgroundColor:nil];
+    [self sendDelegateTVChanged];
 }
 
 - (void)richTextEditorToolbarDidSelectUnderline {
@@ -1010,7 +1043,18 @@
     [self applyFontAttributesWithBoldTrait:isBold italicTrait:isItalic fontName:fontName fontSize:fontSize toTextAtRange:self.selectedRange];
 }
 
+
 - (void)applyFontAttributesWithBoldTrait:(NSNumber *)isBold italicTrait:(NSNumber *)isItalic fontName:(NSString *)fontName fontSize:(NSNumber *)fontSize toTextAtRange:(NSRange)range {
+    [self applyFontAttributesWithBoldTrait:isBold
+                               italicTrait:isItalic
+                                  fontName:fontName
+                                  fontSize:fontSize
+                             toTextAtRange:range
+                           foregroundColor:nil
+                           backgroundColor:nil];
+}
+
+- (void)applyFontAttributesWithBoldTrait:(NSNumber *)isBold italicTrait:(NSNumber *)isItalic fontName:(NSString *)fontName fontSize:(NSNumber *)fontSize toTextAtRange:(NSRange)range foregroundColor:(UIColor *) foregroundColor backgroundColor:(UIColor *) backgroundColor {
     // If any text selected apply attributes to text
     if (range.length > 0) {
         [self.textStorage beginEditing];
@@ -1027,6 +1071,15 @@
             if (newFont) {
                 [self.textStorage addAttributes:[NSDictionary dictionaryWithObject:newFont forKey:NSFontAttributeName] range:range];
             }
+
+            if (foregroundColor) {
+                [self.textStorage addAttributes:[NSDictionary dictionaryWithObject:foregroundColor forKey:NSForegroundColorAttributeName] range:range];
+            }
+
+            if (backgroundColor) {
+                [self.textStorage addAttributes:[NSDictionary dictionaryWithObject:backgroundColor forKey:NSBackgroundColorAttributeName] range:range];
+            }
+
         }];
         [self.textStorage endEditing];
         self.selectedRange = range;
@@ -1041,6 +1094,14 @@
                                    fromDictionary:self.typingAttributes];
         if (newFont) {
             [self applyAttributeToTypingAttribute:newFont forKey:NSFontAttributeName];
+        }
+
+        if (foregroundColor) {
+            [self applyAttributeToTypingAttribute:foregroundColor forKey:NSForegroundColorAttributeName];
+        }
+
+        if (backgroundColor) {
+            [self applyAttributeToTypingAttribute:backgroundColor forKey:NSBackgroundColorAttributeName];
         }
     }
     [self updateToolbarState];
