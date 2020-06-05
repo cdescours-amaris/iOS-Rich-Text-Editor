@@ -304,6 +304,7 @@
 - (void)deleteBackward {
     self.justDeletedBackward = YES;
     [super deleteBackward];
+}
 
 #pragma mark - Override Methods -
 
