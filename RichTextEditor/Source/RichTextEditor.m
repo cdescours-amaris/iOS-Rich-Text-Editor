@@ -487,6 +487,21 @@
     [self sendDelegateTVChanged];
 }
 
+- (void)richTextEditorToolbarDidSelectTitle1 {
+        //TODO
+    NSLog(@"Title 1");
+}
+
+- (void)richTextEditorToolbarDidSelectTitle2 {
+        //TODO
+    NSLog(@"Title 2");
+}
+
+- (void)richTextEditorToolbarDidSelectBody {
+        //TODO
+    NSLog(@"Body");
+}
+
 - (void)richTextEditorToolbarDidSelectUnderline {
     NSDictionary *dictionary = self.typingAttributes;
     NSNumber *existingUnderlineStyle = [dictionary objectForKey:NSUnderlineStyleAttributeName];
@@ -835,21 +850,6 @@
     [self.textStorage endEditing];
     [self sendDelegateTVChanged];
 }
-
-- (void)richTextEditorToolbarDidSelectTitle1 {
-    //TODO
-
-}
-
-
-- (void)richTextEditorToolbarDidSelectTitle2 {
-        //TODO
-}
-
-- (void)richTextEditorToolbarDidSelectBody {
-        //TODO
-}
-
 
 - (UIViewController <RichTextEditorColorPicker> *)colorPickerForRichTextEditorToolbarWithAction:(RichTextEditorColorPickerAction)action {
     if ([self.dataSource respondsToSelector:@selector(colorPickerForRichTextEditor:withAction:)]) { // changed "forAction" to "withAction"
